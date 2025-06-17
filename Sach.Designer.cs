@@ -406,6 +406,7 @@ namespace HSK_BookStoreManagement
             this.btnTimkiem.TabIndex = 25;
             this.btnTimkiem.Text = "Tìm kiếm";
             this.btnTimkiem.UseVisualStyleBackColor = true;
+            this.btnTimkiem.Click += new System.EventHandler(this.btnTimKiem_Click);
             // 
             // Sach
             // 

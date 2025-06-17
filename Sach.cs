@@ -323,7 +323,7 @@ namespace HSK_BookStoreManagement
             return string.IsNullOrEmpty(errorMessage);
         }
 
-        private void btnTimkiem_Click(object sender, EventArgs e)
+        private void btnTimKiem_Click(object sender, EventArgs e)
         {
             string sql = "SELECT * FROM vvSach WHERE 1 = 1";
             List<SqlParameter> parameters = new List<SqlParameter>();
