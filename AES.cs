@@ -1,7 +1,9 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 
-namespace BookStoreManagement
+namespace HSK_BookStoreManagement
 {
     public class AES
     {
@@ -10,33 +12,46 @@ namespace BookStoreManagement
 
         public static string Encrypt(string plainText)
         {
-            using Aes aes = Aes.Create();
-            aes.Key = Encoding.UTF8.GetBytes(key);
-            aes.IV = Encoding.UTF8.GetBytes(iv);
-
-            using MemoryStream ms = new MemoryStream();
-            using (CryptoStream cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
-            using (StreamWriter sw = new StreamWriter(cs))
+            using (Aes aes = Aes.Create())
             {
-                sw.Write(plainText);
-            }
-            // Sau khi sw và cs bị đóng, dữ liệu mới thực sự được đẩy hết vào ms
-            return Convert.ToBase64String(ms.ToArray());
-        }
+                aes.Key = Encoding.UTF8.GetBytes(key);
+                aes.IV = Encoding.UTF8.GetBytes(iv);
 
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter sw = new StreamWriter(cs))
+                        {
+                            sw.Write(plainText);
+                        }
+                    }
+
+                    return Convert.ToBase64String(ms.ToArray());
+                }
+            }
+        }
 
         public static string Decrypt(string cipherText)
         {
-            using Aes aes = Aes.Create();
-            aes.Key = Encoding.UTF8.GetBytes(key);
-            aes.IV = Encoding.UTF8.GetBytes(iv);
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(key);
+                aes.IV = Encoding.UTF8.GetBytes(iv);
 
-            byte[] buffer = Convert.FromBase64String(cipherText);
+                byte[] buffer = Convert.FromBase64String(cipherText);
 
-            using MemoryStream ms = new MemoryStream(buffer);
-            using CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Read);
-            using StreamReader sr = new StreamReader(cs);
-            return sr.ReadToEnd();
+                using (MemoryStream ms = new MemoryStream(buffer))
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Read))
+                    {
+                        using (StreamReader sr = new StreamReader(cs))
+                        {
+                            return sr.ReadToEnd();
+                        }
+                    }
+                }
+            }
         }
     }
 }
