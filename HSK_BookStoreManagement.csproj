@@ -62,6 +62,12 @@
     <Compile Include="Sach.Designer.cs">
       <DependentUpon>Sach.cs</DependentUpon>
     </Compile>
+    <Compile Include="TrangChu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrangChu.Designer.cs">
+      <DependentUpon>TrangChu.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="DangNhap.resx">
       <DependentUpon>DangNhap.cs</DependentUpon>
     </EmbeddedResource>
@@ -77,6 +83,9 @@
     </Compile>
     <EmbeddedResource Include="Sach.resx">
       <DependentUpon>Sach.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrangChu.resx">
+      <DependentUpon>TrangChu.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -105,6 +114,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Poster.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\male-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\male-icon-resized.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\male-icon-resized2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kisspng-clerk-computer-icons-clip-art-clerk-5b20ba415e19a0.6115672115288714893854.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

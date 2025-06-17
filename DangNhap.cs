@@ -50,6 +50,17 @@ namespace HSK_BookStoreManagement
             }
 
             MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Hide();
+            string sqlGetMaNV = "SELECT sMaNV FROM tblTaiKhoan WHERE sTenDangNhap = @TenDN";
+            var paramMaNV = new SqlParameter[]
+            {
+                new SqlParameter("@TenDN", tenDangNhap)
+            };
+            object maNVResult = dbHelper.ExecuteScalar(sqlGetMaNV, paramMaNV);
+            string maNV = maNVResult?.ToString() ?? "";
+            TrangChu trangChu = new TrangChu(maNV);
+            trangChu.ShowDialog();
+            this.Close();
             //Sach sach = new Sach();
             //sach.Show();
         }
