@@ -153,7 +153,7 @@
             this.groupBox3.Size = new System.Drawing.Size(265, 262);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "groupBox3";
+            this.groupBox3.Text = "Quản lý";
             // 
             // button6
             // 
