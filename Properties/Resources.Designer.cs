@@ -63,6 +63,16 @@ namespace HSK_BookStoreManagement.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap female_icon_resizedpng {
+            get {
+                object obj = ResourceManager.GetObject("female_icon_resizedpng", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_eye_30 {
             get {
                 object obj = ResourceManager.GetObject("icons8_eye_30", resourceCulture);

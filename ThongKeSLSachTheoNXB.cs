@@ -8,6 +8,7 @@ namespace HSK_BookStoreManagement
 {
     public partial class ThongKeSLSachTheoNXB : Form
     {
+        private DBHelper db = new DBHelper();
         public ThongKeSLSachTheoNXB()
         {
             InitializeComponent();
@@ -19,10 +20,7 @@ namespace HSK_BookStoreManagement
             //string path = System.IO.Path.Combine(Application.StartupPath, "CR_ThongKeSLSachTheoNXB.rpt");
            // rpt.Load(path);
             rpt.Load("CR_ThongKeSLSachTheoNXB.rpt");
-            SqlDataAdapter da = new SqlDataAdapter("TK_Sach_NXB", @"Server=CUONG\MSSQLSERVER01;Database=BookStoreManagement;User Id=sa;Password=cuong;TrustServerCertificate=True;");
-            da.SelectCommand.CommandType = CommandType.StoredProcedure;
-            DataTable dt = new DataTable();
-            da.Fill(dt);
+            DataTable dt = db.ExecuteQuery("TK_Sach_NXB", null, CommandType.StoredProcedure);
 
             rpt.SetDataSource(dt);
             crystalReportViewer1.ReportSource = rpt;

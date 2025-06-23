@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Reflection;
+using System.Resources;
 using System.Windows.Forms;
 
 namespace HSK_BookStoreManagement
@@ -10,6 +12,7 @@ namespace HSK_BookStoreManagement
     {
         private string MaNV;
         private string ChucVu;
+        private string GioiTinh;
         private DBHelper dBHelper = new DBHelper();
         public TrangChu(string ma)
         {
@@ -18,7 +21,7 @@ namespace HSK_BookStoreManagement
         }
         private void TrangChu_Load(object sender, EventArgs e)
         {
-            string sql = "SELECT sTenNV, sChucVu FROM tblNhanVien WHERE sMaNV = @MaNV";
+            string sql = "SELECT sTenNV, sChucVu, sGioitinh FROM tblNhanVien WHERE sMaNV = @MaNV";
             var parameters = new SqlParameter[]
             {
                 new SqlParameter("@MaNV", MaNV)
@@ -30,6 +33,7 @@ namespace HSK_BookStoreManagement
             {
                 txtTen.Text = dt.Rows[0]["sTenNV"].ToString();
                 ChucVu = dt.Rows[0]["sChucVu"].ToString();
+                GioiTinh = dt.Rows[0]["sGioitinh"].ToString();
                 txtChucVu.Text = ChucVu;
             }
             this.IsMdiContainer = true;
@@ -37,6 +41,9 @@ namespace HSK_BookStoreManagement
             {
                 btnNhanVien.Enabled = false;
                 nhânViênToolStripMenuItem.Visible = false;
+            }
+            if (GioiTinh.Equals("Nữ")){
+                pictureBox1.Image = Properties.Resources.female_icon_resizedpng;
             }
         }
 
@@ -55,7 +62,7 @@ namespace HSK_BookStoreManagement
 
         private void thôngTinToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ThongTinCaNhan thongTinCaNhan = new ThongTinCaNhan(MaNV);
+            ThongTinCaNhan thongTinCaNhan = new ThongTinCaNhan(MaNV, GioiTinh);
             thongTinCaNhan.MdiParent = this;
             groupBox2.Text = "Thông tin cá nhân";
             groupBox2.Controls.Add(thongTinCaNhan);
@@ -86,6 +93,40 @@ namespace HSK_BookStoreManagement
             groupBox2.Text = "Thống kê số lượng sách theo nhà xuất bản";
             groupBox2.Controls.Add(thongKeSLSachTheoNXB);
             thongKeSLSachTheoNXB.Show();
+        }
+
+        private void btnKhachHang_Click(object sender, EventArgs e)
+        {
+            KhachHang kh = new KhachHang();
+            kh.MdiParent = this;
+            groupBox2.Text = "Quản lý khách hàng";
+            groupBox2.Controls.Add(kh);
+            kh.Show();  
+        }
+
+        private void kháchHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnKhachHang_Click(sender, e);
+        }
+
+        private void sáchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnSach_Click(sender, e);
+        }
+
+        private void hóaĐơnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+         
+        private void nhàXuấtBảnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnNhaXuatBan_Click(sender, e);
+        }
+
+        private void nhânViênToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnNhanVien_Click(sender, e);
         }
     }
 }

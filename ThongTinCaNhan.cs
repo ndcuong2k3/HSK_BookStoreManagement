@@ -9,16 +9,22 @@ namespace HSK_BookStoreManagement
     public partial class ThongTinCaNhan : Form
     {
         private string MaNV;
+        private string Gioitinh;
         private DBHelper dBHelper = new DBHelper();
         
-        public ThongTinCaNhan(string ma)
+        public ThongTinCaNhan(string ma, string gioitinh)
         {
             InitializeComponent();
             MaNV = ma;
+            Gioitinh = gioitinh;
         }
 
         private void ThongTinCaNhan_Load(object sender, EventArgs e)
         {
+            if(Gioitinh.Equals("Nữ") == true)
+            {
+                pictureBox1.Image = Properties.Resources.female_icon_resizedpng;
+            }
             string queryNV = "Select * from tblNhanVien where sMaNV = @MaNV";
             var parameterNV = new SqlParameter[]
             {
