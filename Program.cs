@@ -16,7 +16,7 @@ namespace HSK_BookStoreManagement
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new NhanVien());
+            Application.Run(new HoaDon());
         }
     }
 }
