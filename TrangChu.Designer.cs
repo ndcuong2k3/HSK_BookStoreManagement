@@ -39,12 +39,11 @@
             this.thốngKêToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btnNhanVien = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.btnSach = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnNhaXuatBan = new System.Windows.Forms.Button();
             this.txtChucVu = new System.Windows.Forms.TextBox();
             this.txtTen = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -67,15 +66,16 @@
             this.thốngKêToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1785, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1785, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // thôngTinToolStripMenuItem
             // 
             this.thôngTinToolStripMenuItem.Name = "thôngTinToolStripMenuItem";
-            this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(86, 24);
-            this.thôngTinToolStripMenuItem.Text = "Thông tin";
+            this.thôngTinToolStripMenuItem.Size = new System.Drawing.Size(141, 24);
+            this.thôngTinToolStripMenuItem.Text = "Thông tin cá nhân";
+            this.thôngTinToolStripMenuItem.Click += new System.EventHandler(this.thôngTinToolStripMenuItem_Click);
             // 
             // quảnLýToolStripMenuItem
             // 
@@ -135,38 +135,38 @@
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Location = new System.Drawing.Point(7, 48);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(293, 535);
+            this.groupBox1.Size = new System.Drawing.Size(293, 700);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.button6);
+            this.groupBox3.Controls.Add(this.btnNhanVien);
             this.groupBox3.Controls.Add(this.button4);
             this.groupBox3.Controls.Add(this.button5);
             this.groupBox3.Controls.Add(this.btnSach);
-            this.groupBox3.Controls.Add(this.button2);
-            this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Location = new System.Drawing.Point(15, 255);
+            this.groupBox3.Controls.Add(this.btnNhaXuatBan);
+            this.groupBox3.Location = new System.Drawing.Point(15, 352);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(265, 262);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Quản lý";
             // 
-            // button6
+            // btnNhanVien
             // 
-            this.button6.Location = new System.Drawing.Point(9, 212);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(245, 31);
-            this.button6.TabIndex = 4;
-            this.button6.Text = "Nhân viên";
-            this.button6.UseVisualStyleBackColor = true;
+            this.btnNhanVien.Location = new System.Drawing.Point(9, 212);
+            this.btnNhanVien.Name = "btnNhanVien";
+            this.btnNhanVien.Size = new System.Drawing.Size(245, 31);
+            this.btnNhanVien.TabIndex = 4;
+            this.btnNhanVien.Text = "Nhân viên";
+            this.btnNhanVien.UseVisualStyleBackColor = true;
+            this.btnNhanVien.Click += new System.EventHandler(this.btnNhanVien_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(9, 175);
+            this.button4.Location = new System.Drawing.Point(9, 167);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(245, 31);
             this.button4.TabIndex = 2;
@@ -175,7 +175,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(9, 136);
+            this.button5.Location = new System.Drawing.Point(9, 122);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(245, 31);
             this.button5.TabIndex = 3;
@@ -184,7 +184,7 @@
             // 
             // btnSach
             // 
-            this.btnSach.Location = new System.Drawing.Point(9, 95);
+            this.btnSach.Location = new System.Drawing.Point(9, 79);
             this.btnSach.Name = "btnSach";
             this.btnSach.Size = new System.Drawing.Size(245, 31);
             this.btnSach.TabIndex = 2;
@@ -192,27 +192,19 @@
             this.btnSach.UseVisualStyleBackColor = true;
             this.btnSach.Click += new System.EventHandler(this.btnSach_Click);
             // 
-            // button2
+            // btnNhaXuatBan
             // 
-            this.button2.Location = new System.Drawing.Point(9, 59);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(245, 31);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Nhà xuất bản";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(9, 21);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(245, 31);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Thông tin cá nhân";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnNhaXuatBan.Location = new System.Drawing.Point(9, 36);
+            this.btnNhaXuatBan.Name = "btnNhaXuatBan";
+            this.btnNhaXuatBan.Size = new System.Drawing.Size(245, 31);
+            this.btnNhaXuatBan.TabIndex = 1;
+            this.btnNhaXuatBan.Text = "Nhà xuất bản";
+            this.btnNhaXuatBan.UseVisualStyleBackColor = true;
+            this.btnNhaXuatBan.Click += new System.EventHandler(this.btnNhaXuatBan_Click);
             // 
             // txtChucVu
             // 
-            this.txtChucVu.Location = new System.Drawing.Point(87, 216);
+            this.txtChucVu.Location = new System.Drawing.Point(87, 256);
             this.txtChucVu.Name = "txtChucVu";
             this.txtChucVu.ReadOnly = true;
             this.txtChucVu.Size = new System.Drawing.Size(182, 22);
@@ -220,7 +212,7 @@
             // 
             // txtTen
             // 
-            this.txtTen.Location = new System.Drawing.Point(87, 186);
+            this.txtTen.Location = new System.Drawing.Point(87, 212);
             this.txtTen.Name = "txtTen";
             this.txtTen.ReadOnly = true;
             this.txtTen.Size = new System.Drawing.Size(182, 22);
@@ -229,7 +221,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 216);
+            this.label2.Location = new System.Drawing.Point(21, 256);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(54, 16);
             this.label2.TabIndex = 2;
@@ -238,7 +230,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 192);
+            this.label1.Location = new System.Drawing.Point(21, 218);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(31, 16);
             this.label1.TabIndex = 1;
@@ -246,9 +238,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::HSK_BookStoreManagement.Properties.Resources.male_icon_resized2;
-            this.pictureBox1.InitialImage = global::HSK_BookStoreManagement.Properties.Resources.male_icon_resized2;
-            this.pictureBox1.Location = new System.Drawing.Point(15, 23);
+            this.pictureBox1.Image = global::HSK_BookStoreManagement.Properties.Resources.male_icon_resized;
+            this.pictureBox1.InitialImage = global::HSK_BookStoreManagement.Properties.Resources.male_icon_resized;
+            this.pictureBox1.Location = new System.Drawing.Point(15, 50);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(265, 144);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -259,7 +251,7 @@
             // 
             this.groupBox2.Location = new System.Drawing.Point(308, 48);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1464, 535);
+            this.groupBox2.Size = new System.Drawing.Size(1464, 700);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
@@ -270,13 +262,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1785, 589);
+            this.ClientSize = new System.Drawing.Size(1785, 753);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "TrangChu";
             this.Text = "Trang chủ";
+            this.Load += new System.EventHandler(this.TrangChu_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -308,10 +301,9 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button btnSach;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnNhaXuatBan;
         private System.Windows.Forms.TextBox txtChucVu;
         private System.Windows.Forms.TextBox txtTen;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnNhanVien;
     }
 }
