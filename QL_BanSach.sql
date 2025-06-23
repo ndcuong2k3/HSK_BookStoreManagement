@@ -272,3 +272,16 @@ BEGIN
     WHERE sMaNV = @MaNV;
 END;
 GO
+
+CREATE PROCEDURE TK_Sach_NXB
+AS
+BEGIN
+	SELECT 
+		n.sTenNXB AS [Tên NXB],
+		COUNT(s.sMasach) AS [Số lượng sách]
+	FROM tblNXB n
+	LEFT JOIN tblSach s ON s.sMaNXB = n.sMaNXB
+	GROUP BY  n.sTenNXB
+END
+
+execute TK_Sach_NXB

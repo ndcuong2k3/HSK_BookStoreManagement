@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HSK_BookStoreManagement
 {
-    
+
     public partial class TrangChu : Form
     {
         private string MaNV;
@@ -42,6 +36,7 @@ namespace HSK_BookStoreManagement
             if(ChucVu.Equals("Nhân viên") == true)
             {
                 btnNhanVien.Enabled = false;
+                nhânViênToolStripMenuItem.Visible = false;
             }
         }
 
@@ -82,6 +77,15 @@ namespace HSK_BookStoreManagement
             groupBox2.Text = "Nhân viên";
             groupBox2.Controls.Add(nhanVien);
             nhanVien.Show();
+        }
+
+        private void thốngKêSốLượngSáchTheoNhàXuấtBảnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ThongKeSLSachTheoNXB thongKeSLSachTheoNXB = new ThongKeSLSachTheoNXB();
+            thongKeSLSachTheoNXB.MdiParent = this;
+            groupBox2.Text = "Thống kê số lượng sách theo nhà xuất bản";
+            groupBox2.Controls.Add(thongKeSLSachTheoNXB);
+            thongKeSLSachTheoNXB.Show();
         }
     }
 }
