@@ -78,6 +78,13 @@
     </Compile>
     <Compile Include="ChiTietHoaDon.Designer.cs">
       <DependentUpon>ChiTietHoaDon.cs</DependentUpon>
+	  </Compile>
+    <Compile Include="CR_ThongKeSLSachTheoNXB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CR_ThongKeSLSachTheoNXB.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DangNhap.cs">
       <SubType>Form</SubType>
@@ -112,6 +119,18 @@
     <Compile Include="Sach.Designer.cs">
       <DependentUpon>Sach.cs</DependentUpon>
     </Compile>
+    <Compile Include="ThongKeSLSachTheoNXB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThongKeSLSachTheoNXB.Designer.cs">
+      <DependentUpon>ThongKeSLSachTheoNXB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThongTinCaNhan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThongTinCaNhan.Designer.cs">
+      <DependentUpon>ThongTinCaNhan.cs</DependentUpon>
+    </Compile>
     <Compile Include="TrangChu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +139,11 @@
     </Compile>
     <EmbeddedResource Include="ChiTietHoaDon.resx">
       <DependentUpon>ChiTietHoaDon.cs</DependentUpon>
+	  </EmbeddedResource>
+    <EmbeddedResource Include="CR_ThongKeSLSachTheoNXB.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CR_ThongKeSLSachTheoNXB.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="DangNhap.resx">
       <DependentUpon>DangNhap.cs</DependentUpon>
@@ -145,6 +169,12 @@
     </Compile>
     <EmbeddedResource Include="Sach.resx">
       <DependentUpon>Sach.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThongKeSLSachTheoNXB.resx">
+      <DependentUpon>ThongKeSLSachTheoNXB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThongTinCaNhan.resx">
+      <DependentUpon>ThongTinCaNhan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TrangChu.resx">
       <DependentUpon>TrangChu.cs</DependentUpon>
