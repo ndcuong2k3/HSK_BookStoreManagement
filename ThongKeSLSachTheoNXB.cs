@@ -25,5 +25,10 @@ namespace HSK_BookStoreManagement
             rpt.SetDataSource(dt);
             crystalReportViewer1.ReportSource = rpt;
         }
+
+        private void ThongKeSLSachTheoNXB_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

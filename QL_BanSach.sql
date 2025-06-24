@@ -310,7 +310,190 @@ GO
 
 select * from tblChiTietHD
 
-select
-from tblNhanVien nv join tblHoaDon hd on nv.sMaNV = hd.sMaNV
-	join tblChiTietHD cthd on hd.sMaHD = cthd.sMaHD
-	join tblSach sach on cthd.sMasach = sach.sMasach
+CREATE PROCEDURE BaoCao_DoanhThuTheoNhanVien
+AS
+BEGIN
+    SELECT 
+        nv.sMaNV, 
+        nv.sTenNV, 
+        COUNT(DISTINCT hd.sMaHD) AS [Số lượng hóa đơn], 
+        SUM(cthd.iSL * sach.iGia) AS [Doanh thu]
+    FROM tblNhanVien nv
+    JOIN tblHoaDon hd ON nv.sMaNV = hd.sMaNV
+    JOIN tblChiTietHD cthd ON hd.sMaHD = cthd.sMaHD
+    JOIN tblSach sach ON cthd.sMasach = sach.sMasach
+    GROUP BY nv.sMaNV, nv.sTenNV
+END;
+GO
+
+CREATE PROCEDURE pr_ThemNXB
+    @smaNXB VARCHAR(5),
+    @sten NVARCHAR(60),
+    @sdiachi NVARCHAR(25),
+    @sSDT VARCHAR(11)
+AS
+BEGIN
+    INSERT INTO tblNXB (sMaNXB, sTenNXB, sDiachi, sSDT)
+    VALUES (@smaNXB, @sten, @sdiachi, @sSDT);
+END;
+GO
+
+CREATE PROCEDURE pr_SuaNXB
+    @smaNXB VARCHAR(5),
+    @sten NVARCHAR(60),
+    @sdiachi NVARCHAR(25),
+    @sSDT VARCHAR(11)
+AS
+BEGIN
+    UPDATE tblNXB
+    SET sTenNXB = @sten,
+        sDiachi = @sdiachi,
+        sSDT = @sSDT
+    WHERE sMaNXB = @smaNXB;
+END;
+GO
+
+CREATE PROCEDURE pr_XoaNXB
+    @imaNXB VARCHAR(5)
+AS
+BEGIN
+    DELETE FROM tblNXB
+    WHERE sMaNXB = @imaNXB;
+END;
+GO
+
+CREATE PROCEDURE pr_TimKiemNXB
+    @keyword NVARCHAR(100)
+AS
+BEGIN
+    SELECT *
+    FROM tblNXB
+    WHERE sTenNXB LIKE N'%' + @keyword + '%';
+END;
+GO
+
+CREATE PROCEDURE pr_ThemNhanVien
+    @sMaNV NVARCHAR(5),
+    @sTenNV NVARCHAR(100),
+    @dNgaysinh DATE,
+    @sGioitinh NVARCHAR(10),
+    @sQuequan NVARCHAR(100),
+    @sSDT NVARCHAR(20),
+    @sChucvu NVARCHAR(50),
+    @dNgayvaolam DATE
+AS
+BEGIN
+    INSERT INTO tblNhanVien
+    VALUES (@sMaNV, @sTenNV, @dNgaysinh, @sGioitinh, @sQuequan, @sSDT, @sChucvu, @dNgayvaolam);
+END;
+GO
+CREATE PROCEDURE pr_SuaNhanVien
+    @sMaNV NVARCHAR(5),
+    @sTenNV NVARCHAR(100),
+    @dNgaysinh DATE,
+    @sGioitinh NVARCHAR(10),
+    @sQuequan NVARCHAR(100),
+    @sSDT NVARCHAR(20),
+    @sChucvu NVARCHAR(50),
+    @dNgayvaolam DATE
+AS
+BEGIN
+    UPDATE tblNhanVien
+    SET sTenNV = @sTenNV,
+        dNgaysinh = @dNgaysinh,
+        sGioitinh = @sGioitinh,
+        sQuequan = @sQuequan,
+        sSDT = @sSDT,
+        sChucvu = @sChucvu,
+        dNgayvaolam = @dNgayvaolam
+    WHERE sMaNV = @sMaNV;
+END;
+GO
+CREATE PROCEDURE pr_XoaNhanVien
+    @sMaNV NVARCHAR(5)
+AS
+BEGIN
+    DELETE FROM tblNhanVien WHERE sMaNV = @sMaNV;
+END;
+GO
+CREATE PROCEDURE pr_TimKiemNhanVien
+    @keyword NVARCHAR(100)
+AS
+BEGIN
+    SELECT *
+    FROM tblNhanVien
+    WHERE sMaNV LIKE '%' + @keyword + '%'
+       OR sTenNV LIKE N'%' + @keyword + '%'
+       OR sSDT LIKE '%' + @keyword + '%';
+END;
+GO
+CREATE PROCEDURE pr_TimKiemHoaDon
+    @keyword NVARCHAR(100)
+AS
+BEGIN
+    SELECT *
+    FROM tblHoaDon
+    WHERE sMaHD LIKE '%' + @keyword + '%'
+       OR sMaNV LIKE '%' + @keyword + '%'
+       OR sMaKH LIKE '%' + @keyword + '%'
+       OR sTrangthai LIKE N'%' + @keyword + '%'
+END;
+GO
+CREATE PROCEDURE pr_HienThiChiTietHD
+    @sMaHD VARCHAR(5)
+AS
+BEGIN
+    SELECT 
+        cthd.sMaHD AS [Mã hóa đơn],
+        cthd.sMasach AS [Mã sách],
+        s.sTensach AS [Tên sách],
+        cthd.iSL AS [Số lượng],
+        s.iGia AS [Đơn giá],
+        (cthd.iSL * s.iGia) AS [Tổng tiền]
+    FROM tblChiTietHD cthd
+    JOIN tblSach s ON cthd.sMasach = s.sMasach
+    WHERE cthd.sMaHD = @sMaHD;
+END;
+GO
+CREATE PROCEDURE pr_ThemChiTietHD
+    @sMaHD VARCHAR(5),
+    @sMaSach VARCHAR(5),
+    @iSL INT
+AS
+BEGIN
+    -- Nếu đã có rồi thì cộng dồn
+    IF EXISTS (SELECT 1 FROM tblChiTietHD WHERE sMaHD = @sMaHD AND sMasach = @sMaSach)
+    BEGIN
+        UPDATE tblChiTietHD
+        SET iSL = iSL + @iSL
+        WHERE sMaHD = @sMaHD AND sMasach = @sMaSach;
+    END
+    ELSE
+    BEGIN
+        INSERT INTO tblChiTietHD (sMaHD, sMasach, iSL)
+        VALUES (@sMaHD, @sMaSach, @iSL);
+    END
+END;
+GO
+CREATE PROCEDURE pr_SuaChiTietHD
+    @sMaHD VARCHAR(5),
+    @sMaSach VARCHAR(5),
+    @iSL INT
+AS
+BEGIN
+    UPDATE tblChiTietHD
+    SET iSL = @iSL
+    WHERE sMaHD = @sMaHD AND sMasach = @sMaSach;
+END;
+GO
+CREATE PROCEDURE pr_XoaChiTietHD
+    @sMaHD VARCHAR(5),
+    @sMaSach VARCHAR(5)
+AS
+BEGIN
+    DELETE FROM tblChiTietHD
+    WHERE sMaHD = @sMaHD AND sMasach = @sMaSach;
+END;
+GO
+
+

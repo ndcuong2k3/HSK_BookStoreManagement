@@ -38,6 +38,7 @@
             this.nhânViênToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thốngKêToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thốngKêSốLượngSáchTheoNhàXuấtBảnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnNhanVien = new System.Windows.Forms.Button();
@@ -51,7 +52,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -141,6 +141,13 @@
             this.thốngKêSốLượngSáchTheoNhàXuấtBảnToolStripMenuItem.Size = new System.Drawing.Size(371, 26);
             this.thốngKêSốLượngSáchTheoNhàXuấtBảnToolStripMenuItem.Text = "Thống kê số lượng sách theo nhà xuất bản";
             this.thốngKêSốLượngSáchTheoNhàXuấtBảnToolStripMenuItem.Click += new System.EventHandler(this.thốngKêSốLượngSáchTheoNhàXuấtBảnToolStripMenuItem_Click);
+            // 
+            // báoCáoDoanhThuTheoNhânViênToolStripMenuItem
+            // 
+            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem.Name = "báoCáoDoanhThuTheoNhânViênToolStripMenuItem";
+            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem.Size = new System.Drawing.Size(371, 26);
+            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem.Text = "Báo cáo doanh thu theo nhân viên";
+            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem.Click += new System.EventHandler(this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem_Click);
             // 
             // groupBox1
             // 
@@ -275,13 +282,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
             // 
-            // báoCáoDoanhThuTheoNhânViênToolStripMenuItem
-            // 
-            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem.Name = "báoCáoDoanhThuTheoNhânViênToolStripMenuItem";
-            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem.Size = new System.Drawing.Size(371, 26);
-            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem.Text = "Báo cáo doanh thu theo nhân viên";
-            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem.Click += new System.EventHandler(this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem_Click);
-            // 
             // TrangChu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -294,7 +294,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "TrangChu";
-            this.Text = "Trang chủ";
+            this.Text = "Quản lý cửa hàng sách";
             this.Load += new System.EventHandler(this.TrangChu_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

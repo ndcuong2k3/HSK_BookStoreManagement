@@ -51,6 +51,7 @@
             this.Controls.Add(this.crystalReportViewer1);
             this.Name = "ThongKeSLSachTheoNXB";
             this.Text = "ThongKeSLSachTheoNXB";
+            this.Load += new System.EventHandler(this.ThongKeSLSachTheoNXB_Load);
             this.ResumeLayout(false);
 
         }

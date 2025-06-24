@@ -437,5 +437,10 @@ namespace HSK_BookStoreManagement
             dataTable = dBHelper.ExecuteQuery(sql, parameters.ToArray());
             dBHelper.FillDataGridView(dgdSach, dataTable);
         }
+
+        private void Sach_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -425,6 +425,7 @@ namespace HSK_BookStoreManagement
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Sach";
             this.Text = "Quản lý sách";
+            this.Load += new System.EventHandler(this.Sach_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgdSach)).EndInit();

@@ -43,16 +43,16 @@
             // dtgv_ChiTietHD
             // 
             this.dtgv_ChiTietHD.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgv_ChiTietHD.Location = new System.Drawing.Point(119, 206);
+            this.dtgv_ChiTietHD.Location = new System.Drawing.Point(31, 153);
             this.dtgv_ChiTietHD.Name = "dtgv_ChiTietHD";
             this.dtgv_ChiTietHD.RowHeadersWidth = 51;
             this.dtgv_ChiTietHD.RowTemplate.Height = 24;
-            this.dtgv_ChiTietHD.Size = new System.Drawing.Size(516, 150);
+            this.dtgv_ChiTietHD.Size = new System.Drawing.Size(601, 212);
             this.dtgv_ChiTietHD.TabIndex = 0;
             // 
             // btn_Them
             // 
-            this.btn_Them.Location = new System.Drawing.Point(119, 141);
+            this.btn_Them.Location = new System.Drawing.Point(59, 104);
             this.btn_Them.Name = "btn_Them";
             this.btn_Them.Size = new System.Drawing.Size(93, 30);
             this.btn_Them.TabIndex = 1;
@@ -62,7 +62,7 @@
             // 
             // btn_Sua
             // 
-            this.btn_Sua.Location = new System.Drawing.Point(327, 141);
+            this.btn_Sua.Location = new System.Drawing.Point(274, 104);
             this.btn_Sua.Name = "btn_Sua";
             this.btn_Sua.Size = new System.Drawing.Size(93, 30);
             this.btn_Sua.TabIndex = 2;
@@ -72,7 +72,7 @@
             // 
             // btn_Xoa
             // 
-            this.btn_Xoa.Location = new System.Drawing.Point(542, 141);
+            this.btn_Xoa.Location = new System.Drawing.Point(506, 104);
             this.btn_Xoa.Name = "btn_Xoa";
             this.btn_Xoa.Size = new System.Drawing.Size(93, 30);
             this.btn_Xoa.TabIndex = 3;
@@ -83,7 +83,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(122, 43);
+            this.label1.Location = new System.Drawing.Point(56, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 16);
             this.label1.TabIndex = 5;
@@ -92,7 +92,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(122, 95);
+            this.label2.Location = new System.Drawing.Point(374, 44);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 16);
             this.label2.TabIndex = 6;
@@ -100,7 +100,7 @@
             // 
             // txt_SoLuong
             // 
-            this.txt_SoLuong.Location = new System.Drawing.Point(226, 95);
+            this.txt_SoLuong.Location = new System.Drawing.Point(478, 44);
             this.txt_SoLuong.Name = "txt_SoLuong";
             this.txt_SoLuong.Size = new System.Drawing.Size(121, 22);
             this.txt_SoLuong.TabIndex = 7;
@@ -108,7 +108,7 @@
             // cb_MaSach
             // 
             this.cb_MaSach.FormattingEnabled = true;
-            this.cb_MaSach.Location = new System.Drawing.Point(226, 40);
+            this.cb_MaSach.Location = new System.Drawing.Point(160, 41);
             this.cb_MaSach.Name = "cb_MaSach";
             this.cb_MaSach.Size = new System.Drawing.Size(121, 24);
             this.cb_MaSach.TabIndex = 8;
@@ -116,7 +116,7 @@
             // lbl_TongHoaDon
             // 
             this.lbl_TongHoaDon.AutoSize = true;
-            this.lbl_TongHoaDon.Location = new System.Drawing.Point(119, 381);
+            this.lbl_TongHoaDon.Location = new System.Drawing.Point(374, 389);
             this.lbl_TongHoaDon.Name = "lbl_TongHoaDon";
             this.lbl_TongHoaDon.Size = new System.Drawing.Size(97, 16);
             this.lbl_TongHoaDon.TabIndex = 9;
@@ -126,7 +126,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(992, 458);
+            this.ClientSize = new System.Drawing.Size(682, 458);
             this.Controls.Add(this.lbl_TongHoaDon);
             this.Controls.Add(this.cb_MaSach);
             this.Controls.Add(this.txt_SoLuong);

@@ -83,7 +83,6 @@ namespace HSK_BookStoreManagement
 
         private void DangNhap_Load(object sender, EventArgs e)
         {
-
         }
     }
 }
