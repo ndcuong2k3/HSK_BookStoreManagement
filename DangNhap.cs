@@ -81,6 +81,9 @@ namespace HSK_BookStoreManagement
             MessageBox.Show(message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        
+        private void DangNhap_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

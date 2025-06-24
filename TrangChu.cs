@@ -116,7 +116,7 @@ namespace HSK_BookStoreManagement
 
         private void hóaĐơnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            btnHoadon_Click(sender, e);
         }
          
         private void nhàXuấtBảnToolStripMenuItem_Click(object sender, EventArgs e)
@@ -127,6 +127,15 @@ namespace HSK_BookStoreManagement
         private void nhânViênToolStripMenuItem_Click(object sender, EventArgs e)
         {
             btnNhanVien_Click(sender, e);
+        }
+
+        private void btnHoadon_Click(object sender, EventArgs e)
+        {
+            HoaDon hd = new HoaDon();
+            hd.MdiParent = this;
+            groupBox2.Text = "Quản lý hóa đơn";
+            groupBox2.Controls.Add(hd);
+            hd.Show();
         }
     }
 }

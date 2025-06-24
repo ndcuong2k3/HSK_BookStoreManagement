@@ -1,22 +1,30 @@
+-- ==============================
+-- TẠO DATABASE
+-- ==============================
+CREATE DATABASE BookStoreManagement;
+GO
 
-create database BookStoreManagement
+USE BookStoreManagement;
+GO
 
-use BookStoreManagement
+-- ==============================
+-- TẠO CÁC BẢNG
+-- ==============================
 
--- 1. Bảng tblNhanVien – Thông tin nhân viên
+-- 1. Bảng Nhân Viên
 CREATE TABLE tblNhanVien (
     sMaNV VARCHAR(5) PRIMARY KEY,
     sTenNV NVARCHAR(25),
     dNgaysinh DATE CHECK (DATEDIFF(YEAR, dNgaysinh, GETDATE()) >= 18),
-    sGioitinh NVARCHAR(4) CHECK (sGioiTinh = N'Nam' OR sGioiTinh = N'Nữ'),
+    sGioitinh NVARCHAR(4) CHECK (sGioitinh IN (N'Nam', N'Nữ')),
     sQuequan NVARCHAR(25),
     sSDT VARCHAR(11),
     sChucvu NVARCHAR(50),
-	dNgayvaolam DATE
+    dNgayvaolam DATE
 );
 GO
 
--- 2. Bảng tblKhachHang – Thông tin khách hàng
+-- 2. Bảng Khách Hàng
 CREATE TABLE tblKhachHang (
     sMaKH VARCHAR(5) PRIMARY KEY,
     sTenKH NVARCHAR(60) NOT NULL,
@@ -25,7 +33,7 @@ CREATE TABLE tblKhachHang (
 );
 GO
 
--- 3. Bảng tblNXB – Nhà xuất bản
+-- 3. Bảng Nhà Xuất Bản
 CREATE TABLE tblNXB (
     sMaNXB VARCHAR(5) PRIMARY KEY,
     sTenNXB NVARCHAR(60) NOT NULL,
@@ -34,7 +42,7 @@ CREATE TABLE tblNXB (
 );
 GO
 
--- 4. Bảng tblSach – Sách
+-- 4. Bảng Sách
 CREATE TABLE tblSach (
     sMasach VARCHAR(5) PRIMARY KEY,
     sTensach NVARCHAR(25) NOT NULL,
@@ -42,46 +50,45 @@ CREATE TABLE tblSach (
     sTacgia NVARCHAR(25) NOT NULL,
     sTheloai NVARCHAR(30),
     iGia INT CHECK (iGia > 0),
-	iSL INT CHECK (iSL > 0),
-    iNamXB INT 
+    iSL INT CHECK (iSL > 0),
+    iNamXB INT
 );
 GO
 
--- 5. Bảng tblHoaDon – Hóa đơn
+-- 5. Bảng Hóa Đơn
 CREATE TABLE tblHoaDon (
     sMaHD VARCHAR(5) PRIMARY KEY,
     sMaNV VARCHAR(5) NOT NULL REFERENCES tblNhanVien(sMaNV),
     sMaKH VARCHAR(5) NOT NULL REFERENCES tblKhachHang(sMaKH),
-    dNgaylap DATE CHECK (dNgayLap <= GETDATE()),
-	sTrangthai NVARCHAR(20) CHECK (sTrangthai IN (N'Đã thanh toán', N'Chưa thanh toán')) DEFAULT N'Chưa thanh toán'
+    dNgaylap DATE CHECK (dNgaylap <= GETDATE()),
+    sTrangthai NVARCHAR(20) CHECK (sTrangthai IN (N'Đã thanh toán', N'Chưa thanh toán')) DEFAULT N'Chưa thanh toán'
 );
 GO
 
--- 6. Bảng tblChiTietHD – Chi tiết hóa đơn
+-- 6. Bảng Chi Tiết Hóa Đơn
 CREATE TABLE tblChiTietHD (
     sMaHD VARCHAR(5) REFERENCES tblHoaDon(sMaHD) ON DELETE CASCADE,
     sMasach VARCHAR(5) REFERENCES tblSach(sMasach) ON DELETE CASCADE,
-    iSl INT NOT NULL CHECK (iSL > 0),
+    iSL INT NOT NULL CHECK (iSL > 0),
     CONSTRAINT pk_CTHD PRIMARY KEY (sMaHD, sMasach)
 );
 GO
 
--- 7. Bảng tblTaiKhoan – Tài khoản đăng nhập
+-- 7. Bảng Tài Khoản
 CREATE TABLE tblTaiKhoan (
     sTenDangNhap VARCHAR(50) NOT NULL UNIQUE,
     sMatKhau VARCHAR(255) NOT NULL,
     sMaNV VARCHAR(5) REFERENCES tblNhanVien(sMaNV),
-	 CONSTRAINT pk_TK PRIMARY KEY (sMaNV)
-    
+    CONSTRAINT pk_TK PRIMARY KEY (sMaNV)
 );
-
 GO
 
-select * from tblTaiKhoan
+-- ==============================
+-- CHÈN DỮ LIỆU MẪU
+-- ==============================
 
 -- Nhân viên
-INSERT INTO tblNhanVien (sMaNV, sTenNV, dNgaysinh, sGioitinh, sQuequan, sSDT, sChucvu, dNgayvaolam)
-VALUES 
+INSERT INTO tblNhanVien VALUES
 ('NV01', N'Nguyễn Văn An', '1995-03-15', N'Nam', N'Hà Nội', '0912345678', N'Nhân viên', '2020-01-10'),
 ('NV02', N'Trần Thị Bích', '1992-07-22', N'Nữ', N'Hải Phòng', '0987654321', N'Quản lý', '2018-05-20'),
 ('NV03', N'Phạm Minh Khoa', '1990-11-01', N'Nam', N'Nghệ An', '0933333333', N'Nhân viên', '2017-09-15'),
@@ -90,8 +97,7 @@ VALUES
 GO
 
 -- Khách hàng
-INSERT INTO tblKhachHang (sMaKH, sTenKH, sDiachi, sSDT)
-VALUES 
+INSERT INTO tblKhachHang VALUES
 ('KH01', N'Lê Minh Tuấn', N'Bắc Ninh', '0901111222'),
 ('KH02', N'Phạm Hồng Nhung', N'TP.HCM', '0933444555'),
 ('KH03', N'Trịnh Thị Thảo', N'Ninh Bình', '0966666666'),
@@ -100,16 +106,14 @@ VALUES
 GO
 
 -- Nhà xuất bản
-INSERT INTO tblNXB (sMaNXB, sTenNXB, sDiachi, sSDT)
-VALUES 
+INSERT INTO tblNXB VALUES
 ('NX01', N'NXB Kim Đồng', N'Hà Nội', '0241234567'),
 ('NX02', N'NXB Trẻ', N'TP.HCM', '0282345678'),
 ('NX03', N'NXB Giáo Dục', N'Đà Nẵng', '0236456456');
 GO
 
 -- Sách
-INSERT INTO tblSach (sMasach, sTensach, sMaNXB, sTacgia, sTheloai, iGia, iSL, iNamXB)
-VALUES 
+INSERT INTO tblSach VALUES
 ('S001', N'Đắc Nhân Tâm', 'NX01', N'Dale Carnegie', N'Kỹ năng sống', 80000, 50, 2020),
 ('S002', N'Toán Học Ứng Dụng', 'NX02', N'Nguyễn Văn A', N'Giáo trình', 95000, 20, 2021),
 ('S003', N'Cuộc đời Steve Jobs', 'NX01', N'Walter Isaacson', N'Tiểu sử', 120000, 15, 2019),
@@ -118,8 +122,7 @@ VALUES
 GO
 
 -- Hóa đơn
-INSERT INTO tblHoaDon (sMaHD, sMaNV, sMaKH, dNgaylap, sTrangthai)
-VALUES 
+INSERT INTO tblHoaDon VALUES
 ('HD01', 'NV01', 'KH01', '2025-06-01', N'Đã thanh toán'),
 ('HD02', 'NV02', 'KH02', '2025-06-02', N'Chưa thanh toán'),
 ('HD03', 'NV03', 'KH03', '2025-06-03', N'Đã thanh toán'),
@@ -128,8 +131,7 @@ VALUES
 GO
 
 -- Chi tiết hóa đơn
-INSERT INTO tblChiTietHD (sMaHD, sMasach, iSL)
-VALUES 
+INSERT INTO tblChiTietHD VALUES
 ('HD01', 'S001', 2),
 ('HD01', 'S002', 1),
 ('HD02', 'S003', 1),
@@ -141,18 +143,18 @@ VALUES
 GO
 
 -- Tài khoản
-INSERT INTO tblTaiKhoan (sTenDangNhap, sMatKhau, sMaNV)
-VALUES 
+INSERT INTO tblTaiKhoan VALUES
 ('an.nguyen', 'matkhau123', 'NV01'),
 ('bich.tran', '12345678', 'NV02'),
 ('khoa.pham', 'abc12345', 'NV03'),
 ('hong.le', 'hong2024', 'NV04'),
 ('dung.hoang', 'dungvip', 'NV05');
 GO
-select * from tblSach
 
-CREATE VIEW vvSach
-AS
+-- ==============================
+-- TẠO VIEW
+-- ==============================
+CREATE VIEW vvSach AS
 SELECT 
     s.sMasach AS [Mã sách],
     s.sTensach AS [Tên sách],
@@ -164,10 +166,13 @@ SELECT
     s.iNamXB AS [Năm xuất bản]
 FROM tblSach s
 JOIN tblNXB n ON s.sMaNXB = n.sMaNXB;
+GO
 
-select * from vvSach
-where [Mã sách] = 'S001'
+-- ==============================
+-- STORE PROCEDURES
+-- ==============================
 
+-- Thêm sách
 CREATE PROCEDURE ThemSach
     @sMasach VARCHAR(5),
     @sTensach NVARCHAR(25),
@@ -179,11 +184,12 @@ CREATE PROCEDURE ThemSach
     @iNamXB INT
 AS
 BEGIN
-    INSERT INTO tblSach (sMasach, sTensach, sMaNXB, sTacgia, sTheloai, iGia, iSL, iNamXB)
+    INSERT INTO tblSach
     VALUES (@sMasach, @sTensach, @sMaNXB, @sTacgia, @sTheloai, @iGia, @iSL, @iNamXB);
 END;
 GO
 
+-- Sửa sách
 CREATE PROCEDURE SuaSach
     @sMasach VARCHAR(5),
     @sTensach NVARCHAR(25),
@@ -196,8 +202,7 @@ CREATE PROCEDURE SuaSach
 AS
 BEGIN
     UPDATE tblSach
-    SET
-        sTensach = @sTensach,
+    SET sTensach = @sTensach,
         sMaNXB = @sMaNXB,
         sTacgia = @sTacgia,
         sTheloai = @sTheloai,
@@ -208,15 +213,16 @@ BEGIN
 END;
 GO
 
+-- Xóa sách
 CREATE PROCEDURE XoaSach
     @sMasach VARCHAR(5)
 AS
 BEGIN
-    DELETE FROM tblSach
-    WHERE	 = @sMasach;
+    DELETE FROM tblSach WHERE sMasach = @sMasach;
 END;
 GO
 
+-- Tìm kiếm sách theo tên
 CREATE PROCEDURE TimKiemSachTheoTen
     @TuKhoa NVARCHAR(100)
 AS
@@ -236,9 +242,7 @@ BEGIN
 END;
 GO
 
-select * from tblSach
-
-
+-- Cập nhật thông tin nhân viên
 CREATE PROCEDURE sp_UpdateNhanVienTheoMa
     @MaNV NVARCHAR(10),
     @TenNV NVARCHAR(50),
@@ -251,8 +255,7 @@ CREATE PROCEDURE sp_UpdateNhanVienTheoMa
 AS
 BEGIN
     UPDATE tblNhanVien
-    SET
-        sTenNV = @TenNV,
+    SET sTenNV = @TenNV,
         sChucVu = @ChucVu,
         sGioitinh = @GioiTinh,
         sQuequan = @QueQuan,
@@ -261,7 +264,9 @@ BEGIN
         dNgayvaolam = @NgayVaoLam
     WHERE sMaNV = @MaNV;
 END;
+GO
 
+-- Cập nhật mật khẩu
 CREATE PROCEDURE sp_UpdateMatKhauTheoMaNV
     @MaNV VARCHAR(5),
     @MatKhau VARCHAR(255)
@@ -273,15 +278,34 @@ BEGIN
 END;
 GO
 
+-- Thống kê số sách theo NXB
 CREATE PROCEDURE TK_Sach_NXB
 AS
 BEGIN
-	SELECT 
-		n.sTenNXB AS [Tên NXB],
-		COUNT(s.sMasach) AS [Số lượng sách]
-	FROM tblNXB n
-	LEFT JOIN tblSach s ON s.sMaNXB = n.sMaNXB
-	GROUP BY  n.sTenNXB
-END
+    SELECT 
+        n.sTenNXB AS [Tên NXB],
+        COUNT(s.sMasach) AS [Số lượng sách]
+    FROM tblNXB n
+    LEFT JOIN tblSach s ON s.sMaNXB = n.sMaNXB
+    GROUP BY n.sTenNXB;
+END;
+GO
 
-execute TK_Sach_NXB
+-- Thêm nhân viên
+CREATE PROCEDURE pr_ThemNhanVien
+    @sMaNV NVARCHAR(10),
+    @sTenNV NVARCHAR(100),
+    @dNgaysinh DATE,
+    @sGioitinh NVARCHAR(10),
+    @sQuequan NVARCHAR(100),
+    @sSDT NVARCHAR(20),
+    @sChucvu NVARCHAR(50),
+    @dNgayvaolam DATE
+AS
+BEGIN
+    INSERT INTO tblNhanVien
+    VALUES (@sMaNV, @sTenNV, @dNgaysinh, @sGioitinh, @sQuequan, @sSDT, @sChucvu, @dNgayvaolam);
+END;
+GO
+
+select * from tblChiTietHD
