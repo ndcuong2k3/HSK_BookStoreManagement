@@ -16,7 +16,7 @@ namespace HSK_BookStoreManagement
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DangKi());
+            Application.Run(new TrangChu("NV01"));
         }
     }
 }

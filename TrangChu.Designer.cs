@@ -51,6 +51,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -128,7 +129,8 @@
             // thốngKêToolStripMenuItem
             // 
             this.thốngKêToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.thốngKêSốLượngSáchTheoNhàXuấtBảnToolStripMenuItem});
+            this.thốngKêSốLượngSáchTheoNhàXuấtBảnToolStripMenuItem,
+            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem});
             this.thốngKêToolStripMenuItem.Name = "thốngKêToolStripMenuItem";
             this.thốngKêToolStripMenuItem.Size = new System.Drawing.Size(84, 24);
             this.thốngKêToolStripMenuItem.Text = "Thống kê";
@@ -273,6 +275,13 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
             // 
+            // báoCáoDoanhThuTheoNhânViênToolStripMenuItem
+            // 
+            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem.Name = "báoCáoDoanhThuTheoNhânViênToolStripMenuItem";
+            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem.Size = new System.Drawing.Size(371, 26);
+            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem.Text = "Báo cáo doanh thu theo nhân viên";
+            this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem.Click += new System.EventHandler(this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem_Click);
+            // 
             // TrangChu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -323,5 +332,6 @@
         private System.Windows.Forms.TextBox txtTen;
         private System.Windows.Forms.Button btnNhanVien;
         private System.Windows.Forms.ToolStripMenuItem thốngKêSốLượngSáchTheoNhàXuấtBảnToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem báoCáoDoanhThuTheoNhânViênToolStripMenuItem;
     }
 }

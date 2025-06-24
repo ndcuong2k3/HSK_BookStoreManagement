@@ -309,3 +309,8 @@ END;
 GO
 
 select * from tblChiTietHD
+
+select
+from tblNhanVien nv join tblHoaDon hd on nv.sMaNV = hd.sMaNV
+	join tblChiTietHD cthd on hd.sMaHD = cthd.sMaHD
+	join tblSach sach on cthd.sMasach = sach.sMasach

@@ -137,5 +137,14 @@ namespace HSK_BookStoreManagement
             groupBox2.Controls.Add(hd);
             hd.Show();
         }
+
+        private void báoCáoDoanhThuTheoNhânViênToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BCDoanhThuTheoNV bC = new BCDoanhThuTheoNV();
+            bC.MdiParent = this;
+            groupBox2.Text = "Báo cáo doanh thu theo nhân viên";
+            groupBox2.Controls.Add(bC);
+            bC.Show();
+        }
     }
 }

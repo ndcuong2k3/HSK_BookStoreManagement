@@ -73,6 +73,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AES.cs" />
+    <Compile Include="BaoCaoDoanhThuTheoNV.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BaoCaoDoanhThuTheoNV.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="BCDoanhThuTheoNV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BCDoanhThuTheoNV.Designer.cs">
+      <DependentUpon>BCDoanhThuTheoNV.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChiTietHoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +162,14 @@
     <Compile Include="TrangChu.Designer.cs">
       <DependentUpon>TrangChu.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BaoCaoDoanhThuTheoNV.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>BaoCaoDoanhThuTheoNV.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BCDoanhThuTheoNV.resx">
+      <DependentUpon>BCDoanhThuTheoNV.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChiTietHoaDon.resx">
       <DependentUpon>ChiTietHoaDon.cs</DependentUpon>
     </EmbeddedResource>
