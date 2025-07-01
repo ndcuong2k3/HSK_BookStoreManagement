@@ -120,9 +120,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(69, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 16);
+            this.label1.Size = new System.Drawing.Size(91, 16);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Mã nhân viên";
+            this.label1.Text = "Tên nhân viên";
             // 
             // dtp_ngayLap
             // 
@@ -136,9 +136,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(69, 73);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 16);
+            this.label2.Size = new System.Drawing.Size(103, 16);
             this.label2.TabIndex = 10;
-            this.label2.Text = "Mã khách hàng";
+            this.label2.Text = "Tên khách hàng";
             // 
             // label3
             // 

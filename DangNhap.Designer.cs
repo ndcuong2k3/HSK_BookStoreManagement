@@ -94,10 +94,10 @@ namespace HSK_BookStoreManagement
             // btnDangNhap
             // 
             this.btnDangNhap.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDangNhap.Location = new System.Drawing.Point(355, 226);
+            this.btnDangNhap.Location = new System.Drawing.Point(402, 230);
             this.btnDangNhap.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDangNhap.Name = "btnDangNhap";
-            this.btnDangNhap.Size = new System.Drawing.Size(250, 35);
+            this.btnDangNhap.Size = new System.Drawing.Size(158, 35);
             this.btnDangNhap.TabIndex = 6;
             this.btnDangNhap.Text = "Đăng nhập";
             this.btnDangNhap.UseVisualStyleBackColor = true;
@@ -107,7 +107,7 @@ namespace HSK_BookStoreManagement
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(352, 341);
+            this.label4.Location = new System.Drawing.Point(365, 338);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(140, 18);
             this.label4.TabIndex = 7;
@@ -118,7 +118,7 @@ namespace HSK_BookStoreManagement
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Blue;
-            this.label5.Location = new System.Drawing.Point(511, 341);
+            this.label5.Location = new System.Drawing.Point(524, 338);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(62, 18);
             this.label5.TabIndex = 8;
