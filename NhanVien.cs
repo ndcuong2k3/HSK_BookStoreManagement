@@ -20,6 +20,9 @@ namespace HSK_BookStoreManagement
             cb_GioiTinh.Items.Clear();
             cb_GioiTinh.Items.AddRange(new string[] { "Nam", "Nữ" });
 
+            cbb_ChucVu.Items.Clear();
+            cbb_ChucVu.Items.AddRange(new string[] { "Quản lý", "Nhân viên" });
+
             DataTable dt = database.ExecuteQuery("SELECT * FROM tblNhanVien");
             dtgv_NhanVien.DataSource = dt;
         }
@@ -47,9 +50,9 @@ namespace HSK_BookStoreManagement
             {
                 MessageBox.Show("Số điện thoại phải có 10 chữ số và bắt đầu bằng số 0."); txt_SDT.Focus(); return false;
             }
-            if (string.IsNullOrWhiteSpace(txt_ChucVu.Text))
+            if (string.IsNullOrWhiteSpace(cbb_ChucVu.Text))
             {
-                MessageBox.Show("Vui lòng nhập chức vụ."); txt_ChucVu.Focus(); return false;
+                MessageBox.Show("Vui lòng nhập chức vụ."); cbb_ChucVu.Focus(); return false;
             }
             if (dtp_NgayVaoLam.Value.Date > DateTime.Now.Date)
             {
@@ -73,7 +76,7 @@ namespace HSK_BookStoreManagement
                 new SqlParameter("@sGioitinh", cb_GioiTinh.Text),
                 new SqlParameter("@sQuequan", txt_QueQuan.Text),
                 new SqlParameter("@sSDT", txt_SDT.Text),
-                new SqlParameter("@sChucvu", txt_ChucVu.Text),
+                new SqlParameter("@sChucvu", cbb_ChucVu.Text),
                 new SqlParameter("@dNgayvaolam", dtp_NgayVaoLam.Value)
             };
 
@@ -96,7 +99,7 @@ namespace HSK_BookStoreManagement
                     new SqlParameter("@sGioitinh", cb_GioiTinh.Text),
                     new SqlParameter("@sQuequan", txt_QueQuan.Text),
                     new SqlParameter("@sSDT", txt_SDT.Text),
-                    new SqlParameter("@sChucvu", txt_ChucVu.Text),
+                    new SqlParameter("@sChucvu", cbb_ChucVu.Text),
                     new SqlParameter("@dNgayvaolam", dtp_NgayVaoLam.Value)
                 };
 
@@ -148,7 +151,7 @@ namespace HSK_BookStoreManagement
                 cb_GioiTinh.Text = row.Cells["sGioitinh"].Value.ToString();
                 txt_QueQuan.Text = row.Cells["sQuequan"].Value.ToString();
                 txt_SDT.Text = row.Cells["sSDT"].Value.ToString();
-                txt_ChucVu.Text = row.Cells["sChucvu"].Value.ToString();
+                cbb_ChucVu.Text = row.Cells["sChucvu"].Value.ToString();
                 dtp_NgayVaoLam.Value = Convert.ToDateTime(row.Cells["dNgayvaolam"].Value);
             }
         }

@@ -48,6 +48,8 @@
             // 
             // dtgv_HoaDon
             // 
+            this.dtgv_HoaDon.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dtgv_HoaDon.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dtgv_HoaDon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgv_HoaDon.Location = new System.Drawing.Point(72, 256);
             this.dtgv_HoaDon.Name = "dtgv_HoaDon";

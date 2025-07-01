@@ -146,5 +146,14 @@ namespace HSK_BookStoreManagement
             groupBox2.Controls.Add(bC);
             bC.Show();
         }
+
+        private void thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ThongKeNVTheoGT bC = new ThongKeNVTheoGT();
+            bC.MdiParent = this;
+            groupBox2.Text = "Thống kê số lượng nhân viên theo giới tính";
+            groupBox2.Controls.Add(bC);
+            bC.Show();
+        }
     }
 }

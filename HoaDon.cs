@@ -41,7 +41,17 @@ namespace HSK_BookStoreManagement
 
         private void LoadHoaDonData()
         {
-            DataTable dt = database.ExecuteQuery("SELECT * FROM tblHoaDon");
+            DataTable dt = database.ExecuteQuery(@"
+    SELECT 
+        hd.sMaHD as [Mã hóa đơn],
+        nv.sTenNV AS [Tên nhân viên],
+        kh.sTenKH AS [Tên khách hàng],
+        hd.dNgaylap AS [Ngày lập],
+        hd.sTrangthai AS [Trạng thái]
+    FROM tblHoaDon hd
+    JOIN tblNhanVien nv ON hd.sMaNV = nv.sMaNV
+    JOIN tblKhachHang kh ON hd.sMaKH = kh.sMaKH
+");
             dtgv_HoaDon.DataSource = dt;
         }
 

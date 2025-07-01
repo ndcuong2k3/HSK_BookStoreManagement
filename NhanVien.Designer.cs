@@ -50,8 +50,8 @@ namespace HSK_BookStoreManagement
             this.dtp_NgaySinh = new System.Windows.Forms.DateTimePicker();
             this.dtp_NgayVaoLam = new System.Windows.Forms.DateTimePicker();
             this.txt_SDT = new System.Windows.Forms.TextBox();
-            this.txt_ChucVu = new System.Windows.Forms.TextBox();
             this.btn_In = new System.Windows.Forms.Button();
+            this.cbb_ChucVu = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dtgv_NhanVien)).BeginInit();
             this.SuspendLayout();
             // 
@@ -127,6 +127,7 @@ namespace HSK_BookStoreManagement
             this.dtgv_NhanVien.RowHeadersWidth = 51;
             this.dtgv_NhanVien.Size = new System.Drawing.Size(892, 150);
             this.dtgv_NhanVien.TabIndex = 7;
+            this.dtgv_NhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgv_NhanVien_CellClick);
             // 
             // cb_GioiTinh
             // 
@@ -225,14 +226,6 @@ namespace HSK_BookStoreManagement
             this.txt_SDT.Size = new System.Drawing.Size(114, 22);
             this.txt_SDT.TabIndex = 19;
             // 
-            // txt_ChucVu
-            // 
-            this.txt_ChucVu.Location = new System.Drawing.Point(550, 66);
-            this.txt_ChucVu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txt_ChucVu.Name = "txt_ChucVu";
-            this.txt_ChucVu.Size = new System.Drawing.Size(114, 22);
-            this.txt_ChucVu.TabIndex = 20;
-            // 
             // btn_In
             // 
             this.btn_In.Location = new System.Drawing.Point(615, 147);
@@ -243,13 +236,21 @@ namespace HSK_BookStoreManagement
             this.btn_In.UseVisualStyleBackColor = true;
             this.btn_In.Click += new System.EventHandler(this.btn_In_Click);
             // 
+            // cbb_ChucVu
+            // 
+            this.cbb_ChucVu.FormattingEnabled = true;
+            this.cbb_ChucVu.Location = new System.Drawing.Point(550, 72);
+            this.cbb_ChucVu.Name = "cbb_ChucVu";
+            this.cbb_ChucVu.Size = new System.Drawing.Size(114, 24);
+            this.cbb_ChucVu.TabIndex = 22;
+            // 
             // NhanVien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(967, 360);
+            this.Controls.Add(this.cbb_ChucVu);
             this.Controls.Add(this.btn_In);
-            this.Controls.Add(this.txt_ChucVu);
             this.Controls.Add(this.txt_SDT);
             this.Controls.Add(this.dtp_NgayVaoLam);
             this.Controls.Add(this.dtp_NgaySinh);
@@ -272,6 +273,7 @@ namespace HSK_BookStoreManagement
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "NhanVien";
             this.Text = "NhanVien";
+            this.Load += new System.EventHandler(this.NhanVien_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgv_NhanVien)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -299,7 +301,7 @@ namespace HSK_BookStoreManagement
         private DateTimePicker dtp_NgaySinh;
         private DateTimePicker dtp_NgayVaoLam;
         private TextBox txt_SDT;
-        private TextBox txt_ChucVu;
         private Button btn_In;
+        private ComboBox cbb_ChucVu;
     }
 }
