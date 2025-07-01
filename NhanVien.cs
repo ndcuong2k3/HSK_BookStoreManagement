@@ -152,5 +152,11 @@ namespace HSK_BookStoreManagement
                 dtp_NgayVaoLam.Value = Convert.ToDateTime(row.Cells["dNgayvaolam"].Value);
             }
         }
+
+        private void btn_In_Click(object sender, EventArgs e)
+        {
+            ThongKeNVTheoGT thongKe = new ThongKeNVTheoGT();
+            thongKe.ShowDialog();
+        }
     }
 }
