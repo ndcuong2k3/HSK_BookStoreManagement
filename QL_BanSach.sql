@@ -496,4 +496,10 @@ BEGIN
 END;
 GO
 
-
+CREATE OR ALTER PROCEDURE pr_ThongKeNhanVien_TheoGioiTinh
+AS
+BEGIN
+    SELECT sGioitinh AS [Giới tính], COUNT(*) AS [Số lượng nhân viên]
+    FROM tblNhanVien
+    GROUP BY sGioitinh
+END
