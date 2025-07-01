@@ -78,7 +78,7 @@
     </Compile>
     <Compile Include="ChiTietHoaDon.Designer.cs">
       <DependentUpon>ChiTietHoaDon.cs</DependentUpon>
-	  </Compile>
+    </Compile>
     <Compile Include="CR_ThongKeSLSachTheoNXB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -119,6 +119,18 @@
     <Compile Include="Sach.Designer.cs">
       <DependentUpon>Sach.cs</DependentUpon>
     </Compile>
+    <Compile Include="ThongKeNVTheoGT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThongKeNVTheoGT.Designer.cs">
+      <DependentUpon>ThongKeNVTheoGT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThongKeNVtheoGT1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ThongKeNVtheoGT.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ThongKeSLSachTheoNXB.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,7 +151,7 @@
     </Compile>
     <EmbeddedResource Include="ChiTietHoaDon.resx">
       <DependentUpon>ChiTietHoaDon.cs</DependentUpon>
-	  </EmbeddedResource>
+    </EmbeddedResource>
     <EmbeddedResource Include="CR_ThongKeSLSachTheoNXB.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CR_ThongKeSLSachTheoNXB.cs</LastGenOutput>
@@ -169,6 +181,13 @@
     </Compile>
     <EmbeddedResource Include="Sach.resx">
       <DependentUpon>Sach.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThongKeNVTheoGT.resx">
+      <DependentUpon>ThongKeNVTheoGT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThongKeNVtheoGT.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ThongKeNVtheoGT1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ThongKeSLSachTheoNXB.resx">
       <DependentUpon>ThongKeSLSachTheoNXB.cs</DependentUpon>
