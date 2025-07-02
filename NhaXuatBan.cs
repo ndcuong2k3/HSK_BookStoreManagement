@@ -100,5 +100,10 @@ namespace HSK_BookStoreManagement
             DataTable dt = database.ExecuteQuery("pr_TimKiemNXB", parameters, CommandType.StoredProcedure);
             dtgv_NXB.DataSource = dt;
         }
+
+        private void NhaXuatBan_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

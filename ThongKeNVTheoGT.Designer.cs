@@ -41,6 +41,7 @@
             this.crpt_TKtheoGT.Name = "crpt_TKtheoGT";
             this.crpt_TKtheoGT.Size = new System.Drawing.Size(800, 450);
             this.crpt_TKtheoGT.TabIndex = 0;
+            this.crpt_TKtheoGT.Load += new System.EventHandler(this.crpt_TKtheoGT_Load);
             // 
             // ThongKeNVTheoGT
             // 

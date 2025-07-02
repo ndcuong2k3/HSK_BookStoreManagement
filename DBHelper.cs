@@ -12,7 +12,10 @@ namespace HSK_BookStoreManagement
         private readonly string connectionString = "Server=CUONG\\MSSQLSERVER01;Database=BookStoreManagement;User Id=sa;Password=cuong;TrustServerCertificate=True;";
         //private readonly string connectionString = "Data Source=LAPTOP-H83FI4CJ\\SQLEXPRESS;Initial Catalog=BookStoreManagement;Integrated Security=True;Encrypt=False";
         //private readonly string connectionString = "Data Source=LAPTOP-H83FI4CJ\\SQLEXPRESS;Initial Catalog=BookStoreManagement;Integrated Security=True;Encrypt=False";
-        
+        public String GetConnectionString()
+        {
+            return connectionString;
+        }
         private SqlConnection GetConnection()
         {
             return new SqlConnection(connectionString);

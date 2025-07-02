@@ -1,6 +1,5 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using System;
-using System.Data.SqlClient;
 using System.Data;
 using System.Windows.Forms;
 

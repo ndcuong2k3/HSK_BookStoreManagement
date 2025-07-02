@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Reflection;
-using System.Resources;
 using System.Windows.Forms;
 
 namespace HSK_BookStoreManagement

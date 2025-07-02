@@ -155,6 +155,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ThongKeNVtheoGT.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ThongKeSLSachTheoNXB.cs">
       <SubType>Form</SubType>
@@ -227,6 +228,7 @@
     <EmbeddedResource Include="ThongKeNVtheoGT.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ThongKeNVtheoGT1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="ThongKeSLSachTheoNXB.resx">
       <DependentUpon>ThongKeSLSachTheoNXB.cs</DependentUpon>
