@@ -1,19 +1,13 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HSK_BookStoreManagement
 {
     public partial class ThongKeNVTheoGT : Form
     {
+       DBHelper dbHelper= new DBHelper();
         public ThongKeNVTheoGT()
         {
             InitializeComponent();
@@ -23,17 +17,17 @@ namespace HSK_BookStoreManagement
         private void ThongKeNVTheoGT_Load(object sender, EventArgs e)
         {
             ReportDocument rpt = new ReportDocument();
-            string path = System.IO.Path.Combine(Application.StartupPath, "ThongKeNVtheoGT.rpt");
-            rpt.Load(path);
 
+            rpt.Load("ThongKeNVtheoGT.rpt");
 
-            SqlDataAdapter da = new SqlDataAdapter("pr_ThongKeNhanVien_TheoGioiTinh", "Data Source=LAPTOP-H83FI4CJ\\SQLEXPRESS;Initial Catalog=BookStoreManagement;Integrated Security=True;Encrypt=False");
-            da.SelectCommand.CommandType = CommandType.StoredProcedure;
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
+            DataTable dt = dbHelper.ExecuteQuery("pr_ThongKeNhanVien_TheoGioiTinh", null, CommandType.StoredProcedure);
             rpt.SetDataSource(dt);
             crpt_TKtheoGT.ReportSource = rpt;
+        }
+
+        private void crpt_TKtheoGT_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

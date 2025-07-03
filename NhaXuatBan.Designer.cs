@@ -31,149 +31,155 @@ namespace HSK_BookStoreManagement
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            txt_tenNXB = new TextBox();
-            txt_SDT = new TextBox();
-            txt_diaChi = new TextBox();
-            btn_Them = new Button();
-            btn_Sua = new Button();
-            btn_Xoa = new Button();
-            btn_timKiem = new Button();
-            dtgv_NXB = new DataGridView();
-            txt_TimKiem = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)dtgv_NXB).BeginInit();
-            SuspendLayout();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txt_tenNXB = new System.Windows.Forms.TextBox();
+            this.txt_SDT = new System.Windows.Forms.TextBox();
+            this.txt_diaChi = new System.Windows.Forms.TextBox();
+            this.btn_Them = new System.Windows.Forms.Button();
+            this.btn_Sua = new System.Windows.Forms.Button();
+            this.btn_Xoa = new System.Windows.Forms.Button();
+            this.btn_timKiem = new System.Windows.Forms.Button();
+            this.dtgv_NXB = new System.Windows.Forms.DataGridView();
+            this.txt_TimKiem = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgv_NXB)).BeginInit();
+            this.SuspendLayout();
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(37, 52);
-            label1.Name = "label1";
-            label1.Size = new Size(65, 20);
-            label1.TabIndex = 0;
-            label1.Text = "Tên NXB";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(37, 42);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 16);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Tên NXB";
             // 
             // label2
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(547, 52);
-            label2.Name = "label2";
-            label2.Size = new Size(97, 20);
-            label2.TabIndex = 1;
-            label2.Text = "Số điện thoại";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(547, 42);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(85, 16);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Số điện thoại";
             // 
             // label3
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(302, 52);
-            label3.Name = "label3";
-            label3.Size = new Size(55, 20);
-            label3.TabIndex = 2;
-            label3.Text = "Địa chỉ";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(302, 42);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(47, 16);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Địa chỉ";
             // 
             // txt_tenNXB
             // 
-            txt_tenNXB.Location = new Point(108, 49);
-            txt_tenNXB.Name = "txt_tenNXB";
-            txt_tenNXB.Size = new Size(125, 27);
-            txt_tenNXB.TabIndex = 3;
+            this.txt_tenNXB.Location = new System.Drawing.Point(108, 39);
+            this.txt_tenNXB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txt_tenNXB.Name = "txt_tenNXB";
+            this.txt_tenNXB.Size = new System.Drawing.Size(125, 22);
+            this.txt_tenNXB.TabIndex = 3;
             // 
             // txt_SDT
             // 
-            txt_SDT.Location = new Point(650, 49);
-            txt_SDT.Name = "txt_SDT";
-            txt_SDT.Size = new Size(125, 27);
-            txt_SDT.TabIndex = 4;
+            this.txt_SDT.Location = new System.Drawing.Point(650, 39);
+            this.txt_SDT.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txt_SDT.Name = "txt_SDT";
+            this.txt_SDT.Size = new System.Drawing.Size(125, 22);
+            this.txt_SDT.TabIndex = 4;
             // 
             // txt_diaChi
             // 
-            txt_diaChi.Location = new Point(363, 49);
-            txt_diaChi.Name = "txt_diaChi";
-            txt_diaChi.Size = new Size(125, 27);
-            txt_diaChi.TabIndex = 5;
+            this.txt_diaChi.Location = new System.Drawing.Point(363, 39);
+            this.txt_diaChi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txt_diaChi.Name = "txt_diaChi";
+            this.txt_diaChi.Size = new System.Drawing.Size(125, 22);
+            this.txt_diaChi.TabIndex = 5;
             // 
             // btn_Them
             // 
-            btn_Them.Location = new Point(108, 98);
-            btn_Them.Name = "btn_Them";
-            btn_Them.Size = new Size(94, 29);
-            btn_Them.TabIndex = 6;
-            btn_Them.Text = "Thêm";
-            btn_Them.UseVisualStyleBackColor = true;
-            btn_Them.Click += btn_Them_Click;
+            this.btn_Them.Location = new System.Drawing.Point(108, 78);
+            this.btn_Them.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_Them.Name = "btn_Them";
+            this.btn_Them.Size = new System.Drawing.Size(94, 23);
+            this.btn_Them.TabIndex = 6;
+            this.btn_Them.Text = "Thêm";
+            this.btn_Them.UseVisualStyleBackColor = true;
             // 
             // btn_Sua
             // 
-            btn_Sua.Location = new Point(274, 98);
-            btn_Sua.Name = "btn_Sua";
-            btn_Sua.Size = new Size(94, 29);
-            btn_Sua.TabIndex = 7;
-            btn_Sua.Text = "Sửa";
-            btn_Sua.UseVisualStyleBackColor = true;
-            btn_Sua.Click += btn_Sua_Click;
+            this.btn_Sua.Location = new System.Drawing.Point(274, 78);
+            this.btn_Sua.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_Sua.Name = "btn_Sua";
+            this.btn_Sua.Size = new System.Drawing.Size(94, 23);
+            this.btn_Sua.TabIndex = 7;
+            this.btn_Sua.Text = "Sửa";
+            this.btn_Sua.UseVisualStyleBackColor = true;
             // 
             // btn_Xoa
             // 
-            btn_Xoa.Location = new Point(453, 98);
-            btn_Xoa.Name = "btn_Xoa";
-            btn_Xoa.Size = new Size(94, 29);
-            btn_Xoa.TabIndex = 8;
-            btn_Xoa.Text = "Xóa";
-            btn_Xoa.UseVisualStyleBackColor = true;
-            btn_Xoa.Click += btn_Xoa_Click;
+            this.btn_Xoa.Location = new System.Drawing.Point(453, 78);
+            this.btn_Xoa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_Xoa.Name = "btn_Xoa";
+            this.btn_Xoa.Size = new System.Drawing.Size(94, 23);
+            this.btn_Xoa.TabIndex = 8;
+            this.btn_Xoa.Text = "Xóa";
+            this.btn_Xoa.UseVisualStyleBackColor = true;
             // 
             // btn_timKiem
             // 
-            btn_timKiem.Location = new Point(108, 143);
-            btn_timKiem.Name = "btn_timKiem";
-            btn_timKiem.Size = new Size(94, 29);
-            btn_timKiem.TabIndex = 9;
-            btn_timKiem.Text = "Tìm kiếm";
-            btn_timKiem.UseVisualStyleBackColor = true;
-            btn_timKiem.Click += btn_timKiem_Click;
+            this.btn_timKiem.Location = new System.Drawing.Point(108, 114);
+            this.btn_timKiem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_timKiem.Name = "btn_timKiem";
+            this.btn_timKiem.Size = new System.Drawing.Size(94, 23);
+            this.btn_timKiem.TabIndex = 9;
+            this.btn_timKiem.Text = "Tìm kiếm";
+            this.btn_timKiem.UseVisualStyleBackColor = true;
             // 
             // dtgv_NXB
             // 
-            dtgv_NXB.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtgv_NXB.Location = new Point(108, 192);
-            dtgv_NXB.Name = "dtgv_NXB";
-            dtgv_NXB.RowHeadersWidth = 51;
-            dtgv_NXB.Size = new Size(667, 188);
-            dtgv_NXB.TabIndex = 10;
-            dtgv_NXB.CellClick += dtgv_NXB_CellClick;
+            this.dtgv_NXB.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgv_NXB.Location = new System.Drawing.Point(108, 154);
+            this.dtgv_NXB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dtgv_NXB.Name = "dtgv_NXB";
+            this.dtgv_NXB.RowHeadersWidth = 51;
+            this.dtgv_NXB.Size = new System.Drawing.Size(667, 150);
+            this.dtgv_NXB.TabIndex = 10;
             // 
             // txt_TimKiem
             // 
-            txt_TimKiem.Location = new Point(274, 143);
-            txt_TimKiem.Name = "txt_TimKiem";
-            txt_TimKiem.Size = new Size(220, 27);
-            txt_TimKiem.TabIndex = 11;
+            this.txt_TimKiem.Location = new System.Drawing.Point(274, 114);
+            this.txt_TimKiem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txt_TimKiem.Name = "txt_TimKiem";
+            this.txt_TimKiem.Size = new System.Drawing.Size(220, 22);
+            this.txt_TimKiem.TabIndex = 11;
             // 
             // NhaXuatBan
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(txt_TimKiem);
-            Controls.Add(dtgv_NXB);
-            Controls.Add(btn_timKiem);
-            Controls.Add(btn_Xoa);
-            Controls.Add(btn_Sua);
-            Controls.Add(btn_Them);
-            Controls.Add(txt_diaChi);
-            Controls.Add(txt_SDT);
-            Controls.Add(txt_tenNXB);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Name = "NhaXuatBan";
-            Text = "NhaXuatBan";
-            Load += NhaXuatBan_Load;
-            ((System.ComponentModel.ISupportInitialize)dtgv_NXB).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 360);
+            this.Controls.Add(this.txt_TimKiem);
+            this.Controls.Add(this.dtgv_NXB);
+            this.Controls.Add(this.btn_timKiem);
+            this.Controls.Add(this.btn_Xoa);
+            this.Controls.Add(this.btn_Sua);
+            this.Controls.Add(this.btn_Them);
+            this.Controls.Add(this.txt_diaChi);
+            this.Controls.Add(this.txt_SDT);
+            this.Controls.Add(this.txt_tenNXB);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Name = "NhaXuatBan";
+            this.Text = "NhaXuatBan";
+            this.Load += new System.EventHandler(this.NhaXuatBan_Load_1);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgv_NXB)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

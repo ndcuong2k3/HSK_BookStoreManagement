@@ -39,6 +39,7 @@
             this.thốngKêToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thốngKêSốLượngSáchTheoNhàXuấtBảnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnNhanVien = new System.Windows.Forms.Button();
@@ -52,7 +53,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -151,6 +151,13 @@
             this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem.Text = "Báo cáo doanh thu theo nhân viên";
             this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem.Click += new System.EventHandler(this.báoCáoDoanhThuTheoNhânViênToolStripMenuItem_Click);
             // 
+            // thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem
+            // 
+            this.thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem.Name = "thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem";
+            this.thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem.Size = new System.Drawing.Size(375, 26);
+            this.thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem.Text = "Thống kê số lượng nhân viên theo giới tính";
+            this.thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem.Click += new System.EventHandler(this.thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem_Click);
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.groupBox3);
@@ -164,7 +171,7 @@
             this.groupBox1.Size = new System.Drawing.Size(293, 700);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "Menu";
             // 
             // groupBox3
             // 
@@ -282,14 +289,7 @@
             this.groupBox2.Size = new System.Drawing.Size(1464, 700);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
-            // 
-            // thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem
-            // 
-            this.thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem.Name = "thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem";
-            this.thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem.Size = new System.Drawing.Size(375, 26);
-            this.thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem.Text = "Thống kê số lượng nhân viên theo giới tính";
-            this.thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem.Click += new System.EventHandler(this.thốngKêSốLượngNhânViênTheoGiớiTínhToolStripMenuItem_Click);
+            this.groupBox2.Text = "Quản lý";
             // 
             // TrangChu
             // 
