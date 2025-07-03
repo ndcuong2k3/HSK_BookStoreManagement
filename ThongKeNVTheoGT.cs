@@ -23,7 +23,7 @@ namespace HSK_BookStoreManagement
         private void ThongKeNVTheoGT_Load(object sender, EventArgs e)
         {
             ReportDocument rpt = new ReportDocument();
-            string path = System.IO.Path.Combine(Application.StartupPath, "D:\\HSK\\HSK_BookStoreManagement\\ThongKeNVtheoGT.rpt");
+            string path = System.IO.Path.Combine(Application.StartupPath, "ThongKeNVtheoGT.rpt");
             rpt.Load(path);
 
 
