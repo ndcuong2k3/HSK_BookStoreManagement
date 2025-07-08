@@ -421,3 +421,79 @@ LEFT JOIN tblDonViSanXuat dv ON v.sMaDV = dv.sMaDV
 WHERE sp.sLoai = N'Vở';
 GO
 select * from tblSanPham
+
+
+CREATE OR ALTER VIEW vvBut AS
+SELECT 
+    b.sMaSP AS [Mã bút],
+    sp.sTenSP AS [Tên bút],
+    dv.sTenDV AS [Đơn vị sản xuất],
+    b.sLoaiBut AS [Loại bút],
+	b.sMauBut as [Màu bút],
+    sp.iGiaNhap AS [Giá nhập],
+    sp.iGiaBan AS [Giá bán],
+    sp.iSL AS [Số lượng]
+FROM tblBut b
+JOIN tblSanPham sp ON b.sMaSP = sp.sMaSP
+LEFT JOIN tblDonViSanXuat dv ON b.sMaDV = dv.sMaDV
+WHERE sp.sLoai = N'Bút';
+GO
+
+select * from vvBut
+
+CREATE OR ALTER PROCEDURE prThemBut
+    @sMaSP VARCHAR(5),
+    @sTenSP NVARCHAR(50),
+    @iGiaNhap INT,
+    @iGiaBan INT,
+    @iSL INT,
+    @sLoaiBut NVARCHAR(30),
+    @sMauBut NVARCHAR(30),
+    @sMaDV VARCHAR(5)
+AS
+BEGIN
+    -- Thêm vào bảng sản phẩm
+    INSERT INTO tblSanPham (sMaSP, sTenSP, iGiaNhap, iGiaBan, iSL, sLoai)
+    VALUES (@sMaSP, @sTenSP, @iGiaNhap, @iGiaBan, @iSL, N'Bút');
+
+    -- Thêm vào bảng bút
+    INSERT INTO tblBut (sMaSP, sLoaiBut, sMauBut, sMaDV)
+    VALUES (@sMaSP, @sLoaiBut, @sMauBut, @sMaDV);
+END;
+GO
+
+CREATE OR ALTER PROCEDURE prSuaBut
+    @sMaSP VARCHAR(5),
+    @sTenSP NVARCHAR(50),
+    @iGiaNhap INT,
+    @iGiaBan INT,
+    @iSL INT,
+    @sLoaiBut NVARCHAR(30),
+    @sMauBut NVARCHAR(30),
+    @sMaDV VARCHAR(5)
+AS
+BEGIN
+    -- Cập nhật bảng sản phẩm
+    UPDATE tblSanPham
+    SET sTenSP = @sTenSP,
+        iGiaNhap = @iGiaNhap,
+        iGiaBan = @iGiaBan,
+        iSL = @iSL
+    WHERE sMaSP = @sMaSP;
+
+    -- Cập nhật bảng bút
+    UPDATE tblBut
+    SET sLoaiBut = @sLoaiBut,
+        sMauBut = @sMauBut,
+        sMaDV = @sMaDV
+    WHERE sMaSP = @sMaSP;
+END;
+GO
+CREATE OR ALTER PROCEDURE prXoaBut
+    @sMaSP VARCHAR(5)
+AS
+BEGIN
+    -- Xóa khỏi bảng cha (tblSanPham), sẽ tự động xóa từ tblBut nhờ ON DELETE CASCADE
+    DELETE FROM tblSanPham WHERE sMaSP = @sMaSP;
+END;
+GO
