@@ -1,9 +1,13 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace HSK_BookStoreManagement
 {
@@ -507,6 +511,88 @@ namespace HSK_BookStoreManagement
 
         private void Sach_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnXuatFile_Click(object sender, EventArgs e)
+        {
+            //try
+            //{
+            //    Excel.Application excelApp = new Excel.Application();
+            //    excelApp.Application.Workbooks.Add(Type.Missing);
+            //    Excel._Worksheet worksheet = (Excel._Worksheet)excelApp.ActiveSheet;
+            //    worksheet.Name = "Exported from DataGridView";
+
+            //    // Xuất tiêu đề cột
+            //    for (int i = 1; i <= dgdSach.Columns.Count; i++)
+            //    {
+            //        worksheet.Cells[1, i] = dgdSach.Columns[i - 1].HeaderText;
+            //    }
+
+            //    // Xuất dữ liệu
+            //    for (int i = 0; i < dgdSach.Rows.Count; i++)
+            //    {
+            //        for (int j = 0; j < dgdSach.Columns.Count; j++)
+            //        {
+            //            if (dgdSach.Rows[i].Cells[j].Value != null)
+            //            {
+            //                worksheet.Cells[i + 2, j + 1] = dgdSach.Rows[i].Cells[j].Value.ToString();
+            //            }
+            //        }
+            //    }
+
+            //    // Hiển thị và lưu
+            //    SaveFileDialog sfd = new SaveFileDialog();
+            //    sfd.Filter = "Excel Workbook|*.xlsx";
+            //    sfd.Title = "Save an Excel File";
+            //    sfd.FileName = "Export.xlsx";
+
+            //    if (sfd.ShowDialog() == DialogResult.OK)
+            //    {
+            //        worksheet.SaveAs(sfd.FileName);
+            //        MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+
+            //    excelApp.Quit();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Lỗi khi xuất Excel: " + ex.Message);
+            //}
+
+            ExcelPackage.License.SetNonCommercialOrganization("My Noncommercial organization");
+
+            using (ExcelPackage pck = new ExcelPackage())
+            {
+                ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Sách");
+
+                // Tiêu đề cột
+                for (int i = 0; i < dgdSach.Columns.Count; i++)
+                {
+                    ws.Cells[1, i + 1].Value = dgdSach.Columns[i].HeaderText;
+                }
+
+                // Dữ liệu
+                for (int i = 0; i < dgdSach.Rows.Count; i++)
+                {
+                    for (int j = 0; j < dgdSach.Columns.Count; j++)
+                    {
+                        ws.Cells[i + 2, j + 1].Value = dgdSach.Rows[i].Cells[j].Value?.ToString();
+                    }
+                }
+
+                // Lưu
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "Excel file|*.xlsx";
+                sfd.Title = "Save as Excel file";
+                sfd.FileName = "Export_EPPlus.xlsx";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    File.WriteAllBytes(sfd.FileName, pck.GetAsByteArray());
+                    MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
 
         }
     }

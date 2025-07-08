@@ -66,6 +66,7 @@ namespace HSK_BookStoreManagement
             this.btnLammoi = new System.Windows.Forms.Button();
             this.btnLuu = new System.Windows.Forms.Button();
             this.btnTimkiem = new System.Windows.Forms.Button();
+            this.btnXuatFile = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgdSach)).BeginInit();
             this.SuspendLayout();
@@ -431,11 +432,23 @@ namespace HSK_BookStoreManagement
             this.btnTimkiem.UseVisualStyleBackColor = true;
             this.btnTimkiem.Click += new System.EventHandler(this.btnTimKiem_Click);
             // 
+            // btnXuatFile
+            // 
+            this.btnXuatFile.Location = new System.Drawing.Point(539, 316);
+            this.btnXuatFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnXuatFile.Name = "btnXuatFile";
+            this.btnXuatFile.Size = new System.Drawing.Size(143, 29);
+            this.btnXuatFile.TabIndex = 26;
+            this.btnXuatFile.Text = "Xuất File";
+            this.btnXuatFile.UseVisualStyleBackColor = true;
+            this.btnXuatFile.Click += new System.EventHandler(this.btnXuatFile_Click);
+            // 
             // Sach
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1082, 362);
+            this.Controls.Add(this.btnXuatFile);
             this.Controls.Add(this.btnTimkiem);
             this.Controls.Add(this.btnLuu);
             this.Controls.Add(this.btnLammoi);
@@ -492,5 +505,6 @@ namespace HSK_BookStoreManagement
         private CheckBox cbGiaNhap;
         private TextBox txtGiaNhap;
         private Label label8;
+        private Button btnXuatFile;
     }
 }
