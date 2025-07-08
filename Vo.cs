@@ -195,8 +195,8 @@ namespace HSK_BookStoreManagement
                 {
                     new SqlParameter("@sMaSP",txtMaSP.Text)
                 };
-                dbHelper.ExecuteNonQuery("prXoaSach", parameters, CommandType.StoredProcedure);
-                MessageBox.Show("Xóa sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dbHelper.ExecuteNonQuery("prXoaVo", parameters, CommandType.StoredProcedure);
+                MessageBox.Show("Xóa vở thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Vo_Load(sender, e);
                 ClearInput();
             }
