@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -23,22 +24,24 @@ namespace HSK_BookStoreManagement
             dataTable = dBHelper.ExecuteQuery(query);
             dBHelper.FillDataGridView(dgdSach, dataTable);
 
-            string cbquery = "SELECT sMaNXB, sTenNXB FROM tblNXB";
-            dBHelper.FillComboBox(cbbNXB, cbquery, "sTenNXB", "sMaNXB");
+            string cbquery = "SELECT sMaDV, sTenDV FROM tblDonViSanXuat";
+            dBHelper.FillComboBox(cbbNXB, cbquery, "sTenDV", "sMaDV");
+
         }
 
         private void dgdSach_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) { return; }
             var row = dgdSach.Rows[e.RowIndex];
-            txtMasach.Text = row.Cells["Mã sách"].Value?.ToString() ?? "";
-            txtTensach.Text = row.Cells["Tên sách"].Value?.ToString() ?? "";
+            txtMaSP.Text = row.Cells["Mã sách"].Value?.ToString() ?? "";
+            txtTenSP.Text = row.Cells["Tên sách"].Value?.ToString() ?? "";
             txtTheloai.Text = row.Cells["Thể loại"].Value?.ToString() ?? "";
             txtSoluong.Text = row.Cells["Số lượng"].Value?.ToString() ?? "";
-            txtGia.Text = row.Cells["Giá"].Value?.ToString() ?? "";
+            txtGiaBan.Text = row.Cells["Giá bán"].Value?.ToString() ?? "";
+            txtGiaNhap.Text = row.Cells["Giá nhập"].Value?.ToString() ?? "";
             txtNamxuatban.Text = row.Cells["Năm xuất bản"].Value?.ToString() ?? "";
             txtTacgia.Text = row.Cells["Tác giả"].Value?.ToString() ?? "";
-            cbbNXB.Text = row.Cells["Nhà xuất bản"].Value?.ToString() ?? "";
+            cbbNXB.Text = row.Cells["Đơn vị sản xuất"].Value?.ToString() ?? "";
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -48,29 +51,39 @@ namespace HSK_BookStoreManagement
                 MessageBox.Show(error, "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            string sql = "Select sMasach from tblSach where sMasach = @MaSach";
-            var parameter = new SqlParameter[]
-            {
-                    new SqlParameter("@MaSach",txtMasach.Text )
-            };
-            var ob = dBHelper.ExecuteScalar(sql, parameter);
-            if (ob != null)
-            {
-                MessageBox.Show("Đã tồn tại sách có mã vừa nhập", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            //string sql = "Select sMaSP from tblSanPham where sMaSP = @MaSP";
+            //var parameter = new SqlParameter[]
+            //{
+            //        new SqlParameter("@MaSP",txtMaSP.Text )
+            //};
+            //var ob = dBHelper.ExecuteScalar(sql, parameter);
+            //if (ob != null)
+            //{
+            //    MessageBox.Show("Đã tồn tại sách có mã vừa nhập", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
+            string sql = @"
+                SELECT ISNULL(MAX(CAST(SUBSTRING(sMaSP, 3, LEN(sMaSP) - 2) AS INT)), 0)
+                FROM tblSanPham"
+            ;
+
+            int maxSo = Convert.ToInt32(dBHelper.ExecuteScalar(sql));
+            int soMoi = maxSo + 1;
+            string maSP = "SP" + soMoi.ToString("D3");
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@sMasach",txtMasach.Text),
-                new SqlParameter("@sTensach",txtTensach.Text),
-                new SqlParameter("@sMaNXB",cbbNXB.SelectedValue),
-                new SqlParameter("@sTacgia",txtTacgia.Text),
-                new SqlParameter("@sTheloai",txtTheloai.Text),
-                new SqlParameter("@iGia",Convert.ToInt32(txtGia.Text)),
-                new SqlParameter("@iSL",Convert.ToInt32(txtSoluong.Text)),
-                new SqlParameter("@iNamXB",Convert.ToInt32(txtNamxuatban.Text)),
+                new SqlParameter("@sMaSP", maSP),
+                new SqlParameter("@sTenSP", txtTenSP.Text),
+                new SqlParameter("@iGiaNhap", Convert.ToInt32(txtGiaNhap.Text)),
+                new SqlParameter("@iGiaBan", Convert.ToInt32(txtGiaBan.Text)),
+                new SqlParameter("@iSL", Convert.ToInt32(txtSoluong.Text)),
+                new SqlParameter("@sTacgia", txtTacgia.Text),
+                new SqlParameter("@sTheloai", txtTheloai.Text),
+                new SqlParameter("@iNamXB", Convert.ToInt32(txtNamxuatban.Text)),
+                new SqlParameter("@sMaDV", cbbNXB.SelectedValue),
             };
-            dBHelper.ExecuteNonQuery("ThemSach", parameters, CommandType.StoredProcedure);
+
+            dBHelper.ExecuteNonQuery("prThemSach", parameters, CommandType.StoredProcedure);
             MessageBox.Show("Thêm sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LoadData();
         }
@@ -80,16 +93,17 @@ namespace HSK_BookStoreManagement
         {
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@sMasach",txtMasach.Text),
-                new SqlParameter("@sTensach",txtTensach.Text),
-                new SqlParameter("@sMaNXB",cbbNXB.SelectedValue),
-                new SqlParameter("@sTacgia",txtTacgia.Text),
-                new SqlParameter("@sTheloai",txtTheloai.Text),
-                new SqlParameter("@iGia",Convert.ToInt32(txtGia.Text)),
-                new SqlParameter("@iSL",Convert.ToInt32(txtSoluong.Text)),
-                new SqlParameter("@iNamXB",Convert.ToInt32(txtNamxuatban.Text)),
+                new SqlParameter("@sMaSP", txtMaSP.Text),
+                new SqlParameter("@sTenSP", txtTenSP.Text),
+                new SqlParameter("@iGiaNhap", Convert.ToInt32(txtGiaNhap.Text)),
+                new SqlParameter("@iGiaBan", Convert.ToInt32(txtGiaBan.Text)),
+                new SqlParameter("@iSL", Convert.ToInt32(txtSoluong.Text)),
+                new SqlParameter("@sTacgia", txtTacgia.Text),
+                new SqlParameter("@sTheloai", txtTheloai.Text),
+                new SqlParameter("@iNamXB", Convert.ToInt32(txtNamxuatban.Text)),
+                new SqlParameter("@sMaDV", cbbNXB.SelectedValue)
             };
-            dBHelper.ExecuteNonQuery("SuaSach", parameters, CommandType.StoredProcedure);
+            dBHelper.ExecuteNonQuery("prSuaSach", parameters, CommandType.StoredProcedure);
             MessageBox.Show("Cập nhật sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LoadData();
             ClearInput();
@@ -102,9 +116,9 @@ namespace HSK_BookStoreManagement
             {
                 var parameters = new SqlParameter[]
                 {
-                    new SqlParameter("@sMasach",txtMasach.Text)
+                    new SqlParameter("@sMaSP",txtMaSP.Text)
                 };
-                dBHelper.ExecuteNonQuery("XoaSach", parameters, CommandType.StoredProcedure);
+                dBHelper.ExecuteNonQuery("prXoaSach", parameters, CommandType.StoredProcedure);
                 MessageBox.Show("Xóa sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadData();
                 ClearInput();
@@ -116,7 +130,7 @@ namespace HSK_BookStoreManagement
         {
             ClearInput();
             LoadData();
-            cbGia.Checked = false;
+            cbGiaBan.Checked = false;
             cbMasach.Checked = false;
             cbNamXB.Checked = false;
             cbNXB.Checked = false;
@@ -125,17 +139,19 @@ namespace HSK_BookStoreManagement
             cbTensach.Checked = false;
             cbNXB.Checked = false;
             cbTheLoai.Checked = false;
+            cbGiaNhap.Checked = false;
         }
 
         private void ClearInput()
         {
-            txtGia.Text = string.Empty;
-            txtMasach.Text = string.Empty;
+            txtGiaBan.Text = string.Empty;
+            txtMaSP.Text = string.Empty;
             txtNamxuatban.Text = string.Empty;
             txtSoluong.Text = string.Empty;
             txtTacgia.Text = string.Empty;
-            txtTensach.Text = string.Empty;
+            txtTenSP.Text = string.Empty;
             txtTheloai.Text = string.Empty;
+            txtGiaNhap.Text = string.Empty;
         }
 
         //private void dgdSach_RowValidated(object sender, DataGridViewCellEventArgs e)
@@ -190,13 +206,14 @@ namespace HSK_BookStoreManagement
 
         private bool CheckIfBookExists(string masach)
         {
-            string sql = "SELECT COUNT(*) FROM tblSach WHERE sMasach = @sMasach";
+            string sql = "SELECT COUNT(*) FROM tblSach WHERE sMaSP = @sMaSP";
             SqlParameter[] parameters = {
-            new SqlParameter("@sMasach", masach)
+                new SqlParameter("@sMaSP", masach)
             };
             object result = dBHelper.ExecuteScalar(sql, parameters);
             return Convert.ToInt32(result) > 0;
         }
+
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
@@ -208,119 +225,102 @@ namespace HSK_BookStoreManagement
                 string tensach = row.Cells["Tên sách"].Value?.ToString() ?? "";
                 string theloai = row.Cells["Thể loại"].Value?.ToString() ?? "";
                 string tacgia = row.Cells["Tác giả"].Value?.ToString() ?? "";
-                string tenNXB = row.Cells["Nhà xuất bản"].Value?.ToString() ?? "";
+                string tenNXB = row.Cells["Đơn vị sản xuất"].Value?.ToString() ?? "";
 
-                // Chuyển đổi số an toàn
                 int.TryParse(row.Cells["Số lượng"].Value?.ToString(), out int soluong);
-                int.TryParse(row.Cells["Giá"].Value?.ToString(), out int gia);
+                int.TryParse(row.Cells["Giá bán"].Value?.ToString(), out int giaban);
+                int.TryParse(row.Cells["Giá nhập"].Value?.ToString(), out int gianhap);
                 int.TryParse(row.Cells["Năm xuất bản"].Value?.ToString(), out int namxb);
 
-                // Lấy mã NXB từ tên NXB
-                string sql = "SELECT sMaNXB FROM tblNXB WHERE sTenNXB = @TenNXB";
-                SqlParameter[] parameters = {
-                    new SqlParameter("@TenNXB", tenNXB)
-                };
+                // Kiểm tra tên nhà xuất bản
                 if (string.IsNullOrEmpty(tenNXB))
                 {
                     MessageBox.Show("Vui lòng nhập tên nhà xuất bản", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                object result = dBHelper.ExecuteScalar(sql, parameters);
+                // Lấy mã NXB
+                string sql = "SELECT sMaDV FROM tblDonViSanXuat WHERE sTenDV = @TenNXB";
+                SqlParameter[] getMaDVParams = {
+            new SqlParameter("@TenNXB", tenNXB)
+        };
+                object result = dBHelper.ExecuteScalar(sql, getMaDVParams);
                 if (result == null)
                 {
-                    MessageBox.Show($"Không tìm thấy Nhà xuất bản: {tenNXB}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Không tìm thấy đơn vị sản xuất: {tenNXB}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     continue;
                 }
+                string maDV = result.ToString();
 
-                string maNXB = result.ToString();
-
-                var parameter = new SqlParameter[]
+                // Tạo parameter để truyền vào SP
+                var parameters = new SqlParameter[]
                 {
-                    new SqlParameter("@sMasach", masach),
-                    new SqlParameter("@sTensach", tensach),
-                    new SqlParameter("@sMaNXB", maNXB),
-                    new SqlParameter("@sTacgia", tacgia),
-                    new SqlParameter("@sTheloai", theloai),
-                    new SqlParameter("@iGia", gia),
-                    new SqlParameter("@iSL", soluong),
-                    new SqlParameter("@iNamXB", namxb),
+            new SqlParameter("@sMaSP", masach),
+            new SqlParameter("@sTenSP", tensach),
+            new SqlParameter("@iGiaNhap", gianhap),
+            new SqlParameter("@iGiaBan", giaban),
+            new SqlParameter("@iSL", soluong),
+            new SqlParameter("@sTacgia", tacgia),
+            new SqlParameter("@sTheloai", theloai),
+            new SqlParameter("@iNamXB", namxb),
+            new SqlParameter("@sMaDV", maDV),
                 };
 
+                // Kiểm tra tồn tại
                 if (CheckIfBookExists(masach))
                 {
-                    if (IsRowModified(masach, tensach, theloai, tacgia, maNXB, gia, soluong, namxb))
+                    // Nếu có thay đổi dữ liệu
+                    if (IsRowModified(masach, tensach, theloai, tacgia, maDV, giaban, soluong, namxb, gianhap))
                     {
-                        var count = dBHelper.ExecuteNonQuery("SuaSach", parameter, CommandType.StoredProcedure);
-                        if (count != 0)
-                        {
-                            MessageBox.Show("Đã lưu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
+                        dBHelper.ExecuteNonQuery("prSuaSach", parameters, CommandType.StoredProcedure);
                     }
                 }
                 else
                 {
-                    if (!ValidateInput(out string errorMessage))
+                    // Validate đầu vào trước khi thêm mới
+                    if (string.IsNullOrWhiteSpace(masach) || string.IsNullOrWhiteSpace(tensach))
                     {
-                        MessageBox.Show(errorMessage, "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Thông tin mã sách hoặc tên sách không được để trống", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                    else
-                    {
-                        dBHelper.ExecuteNonQuery("ThemSach", parameter, CommandType.StoredProcedure);
-                        MessageBox.Show("Đã lưu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
 
+                    dBHelper.ExecuteNonQuery("prThemSach", parameters, CommandType.StoredProcedure);
+                }
             }
+
+            MessageBox.Show("Lưu dữ liệu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LoadData();
         }
 
-        private bool IsRowModified(string masach, string tensach, string theloai, string tacgia, string maNXB, int gia, int soluong, int namxb)
+
+        private bool IsRowModified(string masach, string tensach, string theloai, string tacgia, string maDV, int giaban, int soluong, int namxb, int gianhap)
         {
-            string query = "SELECT sTensach, sTheloai, sTacgia, sMaNXB, iGia, iSL, iNamXB FROM tblSach WHERE sMasach = @Masach";
+            string query = @"
+                SELECT sp.sTenSP, sp.iGiaNhap, sp.iGiaBan, sp.iSL,
+                       sa.sTacgia, sa.sTheloai, sa.iNamXB, sa.sMaDV
+                FROM tblSanPham sp
+                JOIN tblSach sa ON sp.sMaSP = sa.sMaSP
+                WHERE sp.sMaSP = @MaSP
+            ";
+
             SqlParameter[] parameters = {
-                new SqlParameter("@Masach", masach)
+                new SqlParameter("@MaSP", masach)
             };
 
             DataTable dt = dBHelper.ExecuteQuery(query, parameters);
-            if (dt.Rows.Count == 0) return false; // Không có sách trong DB => không so sánh
+            if (dt.Rows.Count == 0) return false;
 
-            DataRow dbRow = dt.Rows[0];
+            DataRow row = dt.Rows[0];
 
-            // So sánh từng trường
             return
-                dbRow["sTensach"].ToString() != tensach ||
-                dbRow["sTheloai"].ToString() != theloai ||
-                dbRow["sTacgia"].ToString() != tacgia ||
-                dbRow["sMaNXB"].ToString() != maNXB ||
-                Convert.ToInt32(dbRow["iGia"]) != gia ||
-                Convert.ToInt32(dbRow["iSL"]) != soluong ||
-                Convert.ToInt32(dbRow["iNamXB"]) != namxb;
-        }
-
-
-        private bool ValidateInput(out string errorMessage)
-        {
-            errorMessage = "";
-
-            // Kiểm tra các trường bắt buộc
-            if (string.IsNullOrWhiteSpace(txtMasach.Text))
-                errorMessage = "Vui lòng nhập Mã sách.";
-            else if (string.IsNullOrWhiteSpace(txtTensach.Text))
-                errorMessage = "Vui lòng nhập Tên sách.";
-            else if (string.IsNullOrWhiteSpace(txtGia.Text) || !int.TryParse(txtGia.Text, out _))
-                errorMessage = "Giá phải là số nguyên hợp lệ.";
-            else if (string.IsNullOrWhiteSpace(txtSoluong.Text) || !int.TryParse(txtSoluong.Text, out _))
-                errorMessage = "Số lượng phải là số nguyên hợp lệ.";
-            else if (string.IsNullOrWhiteSpace(txtNamxuatban.Text) || !int.TryParse(txtNamxuatban.Text, out int namxb) || namxb < 1900 || namxb > DateTime.Now.Year)
-                errorMessage = "Năm xuất bản phải là số hợp lệ từ 1900 đến hiện tại.";
-            else if (string.IsNullOrWhiteSpace(txtTacgia.Text))
-                errorMessage = "Vui lòng nhập Tác giả.";
-            else if (cbbNXB.SelectedIndex == -1)
-                errorMessage = "Vui lòng chọn Nhà xuất bản.";
-
-            return string.IsNullOrEmpty(errorMessage);
+                row["sTenSP"].ToString() != tensach ||
+                row["sTacgia"].ToString() != tacgia ||
+                row["sTheloai"].ToString() != theloai ||
+                row["sMaDV"].ToString() != maDV ||
+                Convert.ToInt32(row["iGiaNhap"]) != gianhap ||
+                Convert.ToInt32(row["iGiaBan"]) != giaban ||
+                Convert.ToInt32(row["iSL"]) != soluong ||
+                Convert.ToInt32(row["iNamXB"]) != namxb;
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)
@@ -330,10 +330,10 @@ namespace HSK_BookStoreManagement
 
             if (cbMasach.Checked)
             {
-                if (!string.IsNullOrWhiteSpace(txtMasach.Text))
+                if (!string.IsNullOrWhiteSpace(txtMaSP.Text))
                 {
                     sql += " AND [Mã sách] = @Masach";
-                    parameters.Add(new SqlParameter("@Masach", txtMasach.Text));
+                    parameters.Add(new SqlParameter("@Masach", txtMaSP.Text));
                 }
                 else
                 {
@@ -358,10 +358,10 @@ namespace HSK_BookStoreManagement
 
             if (cbTensach.Checked)
             {
-                if (!string.IsNullOrWhiteSpace(txtTensach.Text))
+                if (!string.IsNullOrWhiteSpace(txtTenSP.Text))
                 {
                     sql += " AND [Tên sách] LIKE @Tensach";
-                    parameters.Add(new SqlParameter("@Tensach", "%" + txtTensach.Text + "%"));
+                    parameters.Add(new SqlParameter("@Tensach", "%" + txtTenSP.Text + "%"));
                 }
                 else
                 {
@@ -371,11 +371,11 @@ namespace HSK_BookStoreManagement
                 }
             }
 
-            if (cbGia.Checked)
+            if (cbGiaBan.Checked)
             {
-                if (!string.IsNullOrWhiteSpace(txtGia.Text) && int.TryParse(txtGia.Text, out int gia))
+                if (!string.IsNullOrWhiteSpace(txtGiaBan.Text) && int.TryParse(txtGiaBan.Text, out int gia))
                 {
-                    sql += " AND [Giá] = @Gia";
+                    sql += " AND [Giá bán] = @Gia";
                     parameters.Add(new SqlParameter("@Gia", gia));
                 }
                 else
@@ -429,13 +429,80 @@ namespace HSK_BookStoreManagement
 
             if (cbNXB.Checked)
             {
-                sql += " AND [Nhà xuất bản] = @NXB";
+                sql += " AND [Đơn vị sản xuất] = @NXB";
                 parameters.Add(new SqlParameter("@NXB", cbbNXB.Text));
+            }
+
+            if (cbGiaNhap.Checked)
+            {
+                sql += " AND [Giá nhập] = @GiaNhap";
+                parameters.Add(new SqlParameter("@GiaNhap", txtGiaNhap.Text));
             }
 
             DataTable dataTable = new DataTable();
             dataTable = dBHelper.ExecuteQuery(sql, parameters.ToArray());
             dBHelper.FillDataGridView(dgdSach, dataTable);
+        }
+        private bool ValidateInput(out string errorMessage)
+        {
+            errorMessage = "";
+
+            if (string.IsNullOrWhiteSpace(txtTenSP.Text))
+            {
+                errorMessage = "Vui lòng nhập Tên sách.";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtTheloai.Text))
+            {
+                errorMessage = "Vui lòng nhập Thể loại.";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtTacgia.Text))
+            {
+                errorMessage = "Vui lòng nhập Tác giả.";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtGiaNhap.Text) || !int.TryParse(txtGiaNhap.Text, out int giaNhap) || giaNhap < 0)
+            {
+                errorMessage = "Giá nhập phải là số nguyên dương.";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtGiaBan.Text) || !int.TryParse(txtGiaBan.Text, out int giaBan) || giaBan < 0)
+            {
+                errorMessage = "Giá bán phải là số nguyên dương.";
+                return false;
+            }
+
+            // ⚠️ Kiểm tra giá bán không được nhỏ hơn giá nhập
+            if (giaBan < giaNhap)
+            {
+                errorMessage = "Giá bán không được nhỏ hơn Giá nhập.";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtSoluong.Text) || !int.TryParse(txtSoluong.Text, out int soLuong) || soLuong < 0)
+            {
+                errorMessage = "Số lượng phải là số nguyên dương.";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtNamxuatban.Text) || !int.TryParse(txtNamxuatban.Text, out int namXB) || namXB < 1900 || namXB > DateTime.Now.Year)
+            {
+                errorMessage = $"Năm xuất bản phải nằm trong khoảng 1900 - {DateTime.Now.Year}.";
+                return false;
+            }
+
+            if (cbbNXB.SelectedIndex == -1 || cbbNXB.SelectedValue == null)
+            {
+                errorMessage = "Vui lòng chọn Nhà xuất bản.";
+                return false;
+            }
+
+            return true;
         }
 
         private void Sach_Load(object sender, EventArgs e)
