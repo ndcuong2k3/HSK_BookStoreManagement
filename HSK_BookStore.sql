@@ -349,3 +349,75 @@ BEGIN
 END;
 GO
 
+select * from tblVo
+
+CREATE OR ALTER PROCEDURE prThemVo
+    @sMaSP VARCHAR(5),
+    @sTenSP NVARCHAR(50),
+    @iGiaNhap INT,
+    @iGiaBan INT,
+    @iSL INT,
+    @iSoTrang INT,
+    @sKieuDongKe NVARCHAR(30),
+    @sMaDV VARCHAR(5)
+AS
+BEGIN
+    -- Thêm vào bảng sản phẩm
+    INSERT INTO tblSanPham (sMaSP, sTenSP, iGiaNhap, iGiaBan, iSL, sLoai)
+    VALUES (@sMaSP, @sTenSP, @iGiaNhap, @iGiaBan, @iSL, N'Vở');
+
+    -- Thêm vào bảng vở
+    INSERT INTO tblVo (sMaSP, iSoTrang, sKieuDongKe, sMaDV)
+    VALUES (@sMaSP, @iSoTrang, @sKieuDongKe, @sMaDV);
+END;
+GO
+CREATE OR ALTER PROCEDURE prSuaVo
+    @sMaSP VARCHAR(5),
+    @sTenSP NVARCHAR(50),
+    @iGiaNhap INT,
+    @iGiaBan INT,
+    @iSL INT,
+    @iSoTrang INT,
+    @sKieuDongKe NVARCHAR(30),
+    @sMaDV VARCHAR(5)
+AS
+BEGIN
+    -- Cập nhật bảng sản phẩm
+    UPDATE tblSanPham
+    SET sTenSP = @sTenSP,
+        iGiaNhap = @iGiaNhap,
+        iGiaBan = @iGiaBan,
+        iSL = @iSL
+    WHERE sMaSP = @sMaSP;
+
+    -- Cập nhật bảng vở
+    UPDATE tblVo
+    SET iSoTrang = @iSoTrang,
+        sKieuDongKe = @sKieuDongKe,
+        sMaDV = @sMaDV
+    WHERE sMaSP = @sMaSP;
+END;
+GO
+CREATE OR ALTER PROCEDURE prXoaVo
+    @sMaSP VARCHAR(5)
+AS
+BEGIN
+    DELETE FROM tblSanPham WHERE sMaSP = @sMaSP;
+END;
+GO
+CREATE OR ALTER VIEW vvVo AS
+SELECT 
+    v.sMaSP AS [Mã vở],
+    sp.sTenSP AS [Tên vở],
+    dv.sTenDV AS [Đơn vị sản xuất],
+    v.iSoTrang AS [Số trang],
+    v.sKieuDongKe AS [Kiểu dòng kẻ],
+    sp.iGiaNhap AS [Giá nhập],
+    sp.iGiaBan AS [Giá bán],
+    sp.iSL AS [Số lượng]
+FROM tblVo v
+JOIN tblSanPham sp ON v.sMaSP = sp.sMaSP
+LEFT JOIN tblDonViSanXuat dv ON v.sMaDV = dv.sMaDV
+WHERE sp.sLoai = N'Vở';
+GO
+select * from tblSanPham

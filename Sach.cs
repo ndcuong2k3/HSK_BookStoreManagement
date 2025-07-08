@@ -242,8 +242,8 @@ namespace HSK_BookStoreManagement
                 // Lấy mã NXB
                 string sql = "SELECT sMaDV FROM tblDonViSanXuat WHERE sTenDV = @TenNXB";
                 SqlParameter[] getMaDVParams = {
-            new SqlParameter("@TenNXB", tenNXB)
-        };
+                    new SqlParameter("@TenNXB", tenNXB)
+                };
                 object result = dBHelper.ExecuteScalar(sql, getMaDVParams);
                 if (result == null)
                 {
@@ -255,15 +255,15 @@ namespace HSK_BookStoreManagement
                 // Tạo parameter để truyền vào SP
                 var parameters = new SqlParameter[]
                 {
-            new SqlParameter("@sMaSP", masach),
-            new SqlParameter("@sTenSP", tensach),
-            new SqlParameter("@iGiaNhap", gianhap),
-            new SqlParameter("@iGiaBan", giaban),
-            new SqlParameter("@iSL", soluong),
-            new SqlParameter("@sTacgia", tacgia),
-            new SqlParameter("@sTheloai", theloai),
-            new SqlParameter("@iNamXB", namxb),
-            new SqlParameter("@sMaDV", maDV),
+                    new SqlParameter("@sMaSP", masach),
+                    new SqlParameter("@sTenSP", tensach),
+                    new SqlParameter("@iGiaNhap", gianhap),
+                    new SqlParameter("@iGiaBan", giaban),
+                    new SqlParameter("@iSL", soluong),
+                    new SqlParameter("@sTacgia", tacgia),
+                    new SqlParameter("@sTheloai", theloai),
+                    new SqlParameter("@iNamXB", namxb),
+                    new SqlParameter("@sMaDV", maDV),
                 };
 
                 // Kiểm tra tồn tại
