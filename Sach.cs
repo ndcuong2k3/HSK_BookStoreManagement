@@ -1,13 +1,13 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Security.AccessControl;
 using System.Windows.Forms;
-using Excel = Microsoft.Office.Interop.Excel;
 
 namespace HSK_BookStoreManagement
 {
@@ -516,50 +516,57 @@ namespace HSK_BookStoreManagement
 
         private void btnXuatFile_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    Excel.Application excelApp = new Excel.Application();
-            //    excelApp.Application.Workbooks.Add(Type.Missing);
-            //    Excel._Worksheet worksheet = (Excel._Worksheet)excelApp.ActiveSheet;
-            //    worksheet.Name = "Exported from DataGridView";
+            ExportExcel2();
 
-            //    // Xuất tiêu đề cột
-            //    for (int i = 1; i <= dgdSach.Columns.Count; i++)
-            //    {
-            //        worksheet.Cells[1, i] = dgdSach.Columns[i - 1].HeaderText;
-            //    }
+        }
 
-            //    // Xuất dữ liệu
-            //    for (int i = 0; i < dgdSach.Rows.Count; i++)
-            //    {
-            //        for (int j = 0; j < dgdSach.Columns.Count; j++)
-            //        {
-            //            if (dgdSach.Rows[i].Cells[j].Value != null)
-            //            {
-            //                worksheet.Cells[i + 2, j + 1] = dgdSach.Rows[i].Cells[j].Value.ToString();
-            //            }
-            //        }
-            //    }
+        private void ExportExcel2() {
+            try
+            {
+                Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
+                excelApp.Application.Workbooks.Add(Type.Missing);
+                Microsoft.Office.Interop.Excel._Worksheet worksheet = (Microsoft.Office.Interop.Excel._Worksheet)excelApp.ActiveSheet;
+                worksheet.Name = "Exported from DataGridView";
 
-            //    // Hiển thị và lưu
-            //    SaveFileDialog sfd = new SaveFileDialog();
-            //    sfd.Filter = "Excel Workbook|*.xlsx";
-            //    sfd.Title = "Save an Excel File";
-            //    sfd.FileName = "Export.xlsx";
+                // Xuất tiêu đề cột
+                for (int i = 1; i <= dgdSach.Columns.Count; i++)
+                {
+                    worksheet.Cells[1, i] = dgdSach.Columns[i - 1].HeaderText;
+                }
 
-            //    if (sfd.ShowDialog() == DialogResult.OK)
-            //    {
-            //        worksheet.SaveAs(sfd.FileName);
-            //        MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    }
+                // Xuất dữ liệu
+                for (int i = 0; i < dgdSach.Rows.Count; i++)
+                {
+                    for (int j = 0; j < dgdSach.Columns.Count; j++)
+                    {
+                        if (dgdSach.Rows[i].Cells[j].Value != null)
+                        {
+                            worksheet.Cells[i + 2, j + 1] = dgdSach.Rows[i].Cells[j].Value.ToString();
+                        }
+                    }
+                }
 
-            //    excelApp.Quit();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Lỗi khi xuất Excel: " + ex.Message);
-            //}
+                // Hiển thị và lưu
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "Excel Workbook|*.xlsx";
+                sfd.Title = "Save an Excel File";
+                sfd.FileName = "Export.xlsx";
 
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    worksheet.SaveAs(sfd.FileName);
+                    MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                excelApp.Quit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xuất Excel: " + ex.Message);
+            }
+        }
+        private void ExportExcel()
+        {
             ExcelPackage.License.SetNonCommercialOrganization("My Noncommercial organization");
 
             using (ExcelPackage pck = new ExcelPackage())
@@ -593,7 +600,52 @@ namespace HSK_BookStoreManagement
                     MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-
         }
+        private void ExportPDF(DataGridView dgv)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF file (*.pdf)|*.pdf";
+            saveFileDialog.FileName = "DanhSachSach.pdf";
+
+            if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
+
+            string fontPath = Path.Combine(Application.StartupPath, "Fonts", "arial.ttf");
+
+            BaseFont bf = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            Font font = new Font(bf, 12);
+
+            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 20f, 30f);
+            PdfWriter.GetInstance(pdfDoc, new FileStream(saveFileDialog.FileName, FileMode.Create));
+            pdfDoc.Open();
+
+            PdfPTable pdfTable = new PdfPTable(dgv.ColumnCount);
+            pdfTable.WidthPercentage = 100;
+
+            // Xuất tiêu đề
+            foreach (DataGridViewColumn column in dgv.Columns)
+            {
+                PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, font));
+                cell.BackgroundColor = BaseColor.LIGHT_GRAY;
+                pdfTable.AddCell(cell);
+            }
+
+            // Xuất dữ liệu
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    string cellText = cell.Value?.ToString() ?? "";
+                    pdfTable.AddCell(new Phrase(cellText, font));
+                }
+            }
+
+            pdfDoc.Add(pdfTable);
+            pdfDoc.Close();
+
+            MessageBox.Show("Xuất PDF thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
     }
 }
