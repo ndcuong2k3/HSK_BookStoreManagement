@@ -280,6 +280,7 @@
     <None Include="Resources\male-icon-resized.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="HSK_BookStore.sql" />
     <Content Include="QL_BanSach.sql" />
     <None Include="Resources\female-icon-resizedpng.png" />
   </ItemGroup>

@@ -9,7 +9,7 @@ namespace HSK_BookStoreManagement
 {
     public class DBHelper
     {
-        private readonly string connectionString = "Server=CUONG\\MSSQLSERVER01;Database=BookStoreManagement;User Id=sa;Password=cuong;TrustServerCertificate=True;";
+        private readonly string connectionString = "Server=CUONG\\MSSQLSERVER01;Database=BookStoreManagement_Final;User Id=sa;Password=cuong;TrustServerCertificate=True;";
         //private readonly string connectionString = "Data Source=LAPTOP-H83FI4CJ\\SQLEXPRESS;Initial Catalog=BookStoreManagement;Integrated Security=True;Encrypt=False";
         //private readonly string connectionString = "Data Source=LAPTOP-H83FI4CJ\\SQLEXPRESS;Initial Catalog=BookStoreManagement;Integrated Security=True;Encrypt=False";
         public String GetConnectionString()
