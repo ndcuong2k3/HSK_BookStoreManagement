@@ -86,6 +86,12 @@
     <Compile Include="BCDoanhThuTheoNV.Designer.cs">
       <DependentUpon>BCDoanhThuTheoNV.cs</DependentUpon>
     </Compile>
+    <Compile Include="But.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="But.Designer.cs">
+      <DependentUpon>But.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChiTietHoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BCDoanhThuTheoNV.resx">
       <DependentUpon>BCDoanhThuTheoNV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="But.resx">
+      <DependentUpon>But.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChiTietHoaDon.resx">
       <DependentUpon>ChiTietHoaDon.cs</DependentUpon>
