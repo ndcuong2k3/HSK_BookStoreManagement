@@ -20,7 +20,8 @@ namespace HSK_BookStoreManagement
 
             rpt.Load("ThongKeNVtheoGT.rpt");
 
-            DataTable dt = dbHelper.ExecuteQuery("pr_ThongKeNhanVien_TheoGioiTinh", null, CommandType.StoredProcedure);
+            //DataTable dt = dbHelper.ExecuteQuery("pr_ThongKeNhanVien_TheoGioiTinh", null, CommandType.StoredProcedure);
+            DataTable dt = dbHelper.ExecuteQuery("sp_ThongKeNhanVien_TheoGioiTinh", null, CommandType.StoredProcedure);
             rpt.SetDataSource(dt);
             crpt_TKtheoGT.ReportSource = rpt;
         }

@@ -153,5 +153,23 @@ namespace HSK_BookStoreManagement
             groupBox2.Controls.Add(bC);
             bC.Show();
         }
+
+        private void vởToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Vo bC = new Vo();
+            bC.MdiParent = this;
+            groupBox2.Text = "Quản lý vở";
+            groupBox2.Controls.Add(bC);
+            bC.Show();
+        }
+
+        private void bútToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            But bC = new But();
+            bC.MdiParent = this;
+            groupBox2.Text = "Quản lý bút";
+            groupBox2.Controls.Add(bC);
+            bC.Show();
+        }
     }
 }

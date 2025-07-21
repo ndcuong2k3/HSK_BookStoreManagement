@@ -497,3 +497,30 @@ BEGIN
     DELETE FROM tblSanPham WHERE sMaSP = @sMaSP;
 END;
 GO
+
+CREATE OR ALTER PROCEDURE TK_Sach_NXB
+AS
+BEGIN
+    SELECT 
+        dv.sTenDV AS [Tên NXB],
+        COUNT(s.sMaSP) AS [Số lượng sách]
+    FROM tblSach s
+    JOIN tblSanPham sp ON s.sMaSP = sp.sMaSP
+    LEFT JOIN tblDonViSanXuat dv ON s.sMaDV = dv.sMaDV
+    GROUP BY dv.sTenDV
+END;
+GO
+
+select * from tblSach
+select * from vvSach
+select * from tblSanPham
+
+select * from tblVo
+
+CREATE PROCEDURE sp_ThongKeNhanVienTheoGioiTinh
+AS
+BEGIN
+    SELECT GioiTinh, COUNT(*) AS SoLuong
+    FROM NhanVien
+    GROUP BY GioiTinh;
+END;

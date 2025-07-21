@@ -13,7 +13,7 @@ namespace HSK_BookStoreManagement
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Sach());
+            Application.Run(new DangNhap());
         }
     }
 }
