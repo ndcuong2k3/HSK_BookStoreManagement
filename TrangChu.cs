@@ -68,7 +68,7 @@ namespace HSK_BookStoreManagement
         }
         private void btnNhaXuatBan_Click(object sender, EventArgs e)
         {
-            NhaXuatBan nhaXuatBan = new NhaXuatBan();
+            DonViSanXuat nhaXuatBan = new DonViSanXuat();
             nhaXuatBan.MdiParent = this;
             groupBox2.Text = "Nhà xuất bản";
             groupBox2.Controls.Add(nhaXuatBan);
@@ -156,6 +156,16 @@ namespace HSK_BookStoreManagement
 
         private void vởToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            btnVo_Click(sender, e);
+        }
+
+        private void bútToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnBut_Click(sender, e);
+        }
+
+        private void btnVo_Click(object sender, EventArgs e)
+        {
             Vo bC = new Vo();
             bC.MdiParent = this;
             groupBox2.Text = "Quản lý vở";
@@ -163,7 +173,7 @@ namespace HSK_BookStoreManagement
             bC.Show();
         }
 
-        private void bútToolStripMenuItem_Click(object sender, EventArgs e)
+        private void btnBut_Click(object sender, EventArgs e)
         {
             But bC = new But();
             bC.MdiParent = this;

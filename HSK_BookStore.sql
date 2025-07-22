@@ -18,6 +18,8 @@ CREATE TABLE tblDonViSanXuat (
 );
 GO
 
+
+
 -- ==============================
 -- BẢNG SẢN PHẨM (CHA)
 -- ==============================
@@ -329,6 +331,49 @@ INSERT INTO tblChiTietPN VALUES
 ('PN005', 'SP004', 25);
 GO
 
+
+CREATE VIEW vw_ThongTinDonViSanXuat
+AS
+SELECT 
+    sMaDV AS [Mã đơn vị],
+    sTenDV AS [Tên đơn vị],
+    sDiachi AS [Địa chỉ],
+    sSDT AS [Số điện thoại]
+FROM tblDonViSanXuat;
+
+CREATE PROCEDURE sp_ThemDonViSanXuat
+    @sMaDV VARCHAR(5),
+    @sTenDV NVARCHAR(60),
+    @sDiachi NVARCHAR(50),
+    @sSDT VARCHAR(11)
+AS
+BEGIN
+    INSERT INTO tblDonViSanXuat (sMaDV, sTenDV, sDiachi, sSDT)
+    VALUES (@sMaDV, @sTenDV, @sDiachi, @sSDT);
+END;
+
+CREATE PROCEDURE sp_SuaDonViSanXuat
+    @sMaDV VARCHAR(5),
+    @sTenDV NVARCHAR(60),
+    @sDiachi NVARCHAR(50),
+    @sSDT VARCHAR(11)
+AS
+BEGIN
+    UPDATE tblDonViSanXuat
+    SET
+        sTenDV = @sTenDV,
+        sDiachi = @sDiachi,
+        sSDT = @sSDT
+    WHERE sMaDV = @sMaDV;
+END;
+
+CREATE PROCEDURE sp_XoaDonViSanXuat
+    @sMaDV VARCHAR(5)
+AS
+BEGIN
+    DELETE FROM tblDonViSanXuat
+    WHERE sMaDV = @sMaDV;
+END;
 
 CREATE OR ALTER VIEW vvSach AS
 SELECT 
