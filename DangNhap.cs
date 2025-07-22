@@ -84,5 +84,11 @@ namespace HSK_BookStoreManagement
         private void DangNhap_Load(object sender, EventArgs e)
         {
         }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            DangKi dangKi = new DangKi();
+            dangKi.ShowDialog();
+        }
     }
 }

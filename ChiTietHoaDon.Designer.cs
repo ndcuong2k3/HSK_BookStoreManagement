@@ -35,7 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txt_SoLuong = new System.Windows.Forms.TextBox();
-            this.cb_MaSach = new System.Windows.Forms.ComboBox();
+            this.cb_MaSP = new System.Windows.Forms.ComboBox();
             this.lbl_TongHoaDon = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dtgv_ChiTietHD)).BeginInit();
             this.SuspendLayout();
@@ -85,9 +85,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(56, 44);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 16);
+            this.label1.Size = new System.Drawing.Size(93, 16);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Tên sách";
+            this.label1.Text = "Tên sản phẩm";
             // 
             // label2
             // 
@@ -105,13 +105,13 @@
             this.txt_SoLuong.Size = new System.Drawing.Size(121, 22);
             this.txt_SoLuong.TabIndex = 7;
             // 
-            // cb_MaSach
+            // cb_MaSP
             // 
-            this.cb_MaSach.FormattingEnabled = true;
-            this.cb_MaSach.Location = new System.Drawing.Point(160, 41);
-            this.cb_MaSach.Name = "cb_MaSach";
-            this.cb_MaSach.Size = new System.Drawing.Size(121, 24);
-            this.cb_MaSach.TabIndex = 8;
+            this.cb_MaSP.FormattingEnabled = true;
+            this.cb_MaSP.Location = new System.Drawing.Point(160, 41);
+            this.cb_MaSP.Name = "cb_MaSP";
+            this.cb_MaSP.Size = new System.Drawing.Size(121, 24);
+            this.cb_MaSP.TabIndex = 8;
             // 
             // lbl_TongHoaDon
             // 
@@ -128,7 +128,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(682, 458);
             this.Controls.Add(this.lbl_TongHoaDon);
-            this.Controls.Add(this.cb_MaSach);
+            this.Controls.Add(this.cb_MaSP);
             this.Controls.Add(this.txt_SoLuong);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -153,7 +153,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txt_SoLuong;
-        private System.Windows.Forms.ComboBox cb_MaSach;
+        private System.Windows.Forms.ComboBox cb_MaSP;
         private System.Windows.Forms.Label lbl_TongHoaDon;
     }
 }

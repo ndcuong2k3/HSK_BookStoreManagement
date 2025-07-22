@@ -123,6 +123,7 @@ namespace HSK_BookStoreManagement
             this.label5.Size = new System.Drawing.Size(62, 18);
             this.label5.TabIndex = 8;
             this.label5.Text = "Đăng ký";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // pictureBox2
             // 

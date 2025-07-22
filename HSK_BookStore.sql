@@ -650,9 +650,83 @@ END
 CREATE or alter proc prThongKeSLSanPhamTheoDVSX
 as
 	begin
-		select 
-		from tblSanPham sp join tblDonViSanXuat dvsx on sp.sM = dvsx.sMaDV
+		select dvsx.sTenDV as [Tên đơn vị sản xuất], sum(sp.iSL) as [Số lượng]
+		from tblSanPham sp join tblDonViSanXuat dvsx on sp.sMaDV = dvsx.sMaDV
+		group by dvsx.sTenDV
 	end
 
+CREATE OR ALTER PROC pr_HienThiChiTietHD @MaHD VARCHAR(5) 
+AS
+BEGIN
+    SELECT 
+        hd.sMaHD AS [Mã hóa đơn], 
+        sp.sTenSP AS [Tên sản phẩm], 
+        cthd.iSL AS [Số lượng],
+        sp.iGiaBan AS [Đơn giá],
+        (cthd.iSL * sp.iGiaBan) AS [Tổng tiền]
+    FROM tblHoaDon hd 
+    INNER JOIN tblChiTietHD cthd ON hd.sMaHD = cthd.sMaHD
+    INNER JOIN tblSanPham sp ON cthd.sMaSP = sp.sMaSP
+    WHERE hd.sMaHD = @MaHD
+END
+
+
+CREATE PROCEDURE pr_ThemChiTietHD
+    @sMaHD VARCHAR(10),
+    @sMaSP VARCHAR(10),
+    @iSL INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @iSoLuongTon INT;
+    DECLARE @iSoLuongCu INT;
+
+    -- Lấy số lượng tồn
+    SELECT @iSoLuongTon = iSL FROM tblSanPham WHERE sMaSP = @sMaSP;
+
+    -- Nếu không đủ số lượng tồn
+    IF @iSoLuongTon IS NULL OR @iSoLuongTon < @iSL
+    BEGIN
+        RAISERROR(N'Sản phẩm không đủ tồn kho.', 16, 1);
+        RETURN;
+    END
+
+    -- Kiểm tra sản phẩm đã có trong chi tiết hóa đơn chưa
+    SELECT @iSoLuongCu = iSL FROM tblChiTietHD 
+    WHERE sMaHD = @sMaHD AND sMaSP = @sMaSP;
+
+    IF @iSoLuongCu IS NOT NULL
+    BEGIN
+        -- Nếu đã có, cập nhật số lượng
+        UPDATE tblChiTietHD
+        SET iSL = iSL + @iSL
+        WHERE sMaHD = @sMaHD AND sMaSP = @sMaSP;
+    END
+    ELSE
+    BEGIN
+        -- Nếu chưa có, thêm mới
+        INSERT INTO tblChiTietHD(sMaHD, sMaSP, iSL)
+        VALUES (@sMaHD, @sMaSP, @iSL);
+    END
+
+    -- Cập nhật số lượng tồn
+    UPDATE tblSanPham
+    SET iSL = iSL - @iSL
+    WHERE sMaSP = @sMaSP;
+END
+
+CREATE PROCEDURE pr_ThemCTHD
+    @sMaHD VARCHAR(10),
+    @sMaSP VARCHAR(10),
+    @iSL INT
+AS
+BEGIN
+	insert into tblChiTietHD
+	values(@sMaHD, @sMaSP, @iSL)
+
+	update tblSanPham
+	set iSL = iSL - @iSL
+END
 
 	

@@ -181,5 +181,14 @@ namespace HSK_BookStoreManagement
             groupBox2.Controls.Add(bC);
             bC.Show();
         }
+
+        private void thốngKêSốLượngSảnPhẩmTheoĐơnVịSảnXuấtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TKSoLuongSPTheoDVSXuat bC = new TKSoLuongSPTheoDVSXuat();
+            bC.MdiParent = this;
+            groupBox2.Text = "Thống kê số lượng sản phẩm theo đơn vị sản xuất";
+            groupBox2.Controls.Add(bC);
+            bC.Show();
+        }
     }
 }

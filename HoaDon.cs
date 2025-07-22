@@ -17,6 +17,8 @@ namespace HSK_BookStoreManagement
         {
             LoadComboBoxData();
             LoadHoaDonData();
+            dtp_ngayLap.Format = DateTimePickerFormat.Custom;
+            dtp_ngayLap.CustomFormat = "dd/MM/yyyy";
         }
 
         private void LoadComboBoxData()
@@ -33,20 +35,40 @@ namespace HSK_BookStoreManagement
             cb_trangThai.SelectedIndex = 1;
         }
 
+        //        private void LoadHoaDonData()
+        //        {
+        //            DataTable dt = database.ExecuteQuery(@"
+        //    SELECT 
+        //        hd.sMaHD as [Mã hóa đơn],
+        //        nv.sTenNV AS [Tên nhân viên],
+        //        kh.sTenKH AS [Tên khách hàng],
+        //        hd.dNgaylap AS [Ngày lập],
+        //        hd.sTrangthai AS [Trạng thái]
+        //    FROM tblHoaDon hd
+        //    JOIN tblNhanVien nv ON hd.sMaNV = nv.sMaNV
+        //    JOIN tblKhachHang kh ON hd.sMaKH = kh.sMaKH
+        //");
+        //            dtgv_HoaDon.DataSource = dt;
+        //        }
         private void LoadHoaDonData()
         {
             DataTable dt = database.ExecuteQuery(@"
-    SELECT 
-        hd.sMaHD as [Mã hóa đơn],
-        nv.sTenNV AS [Tên nhân viên],
-        kh.sTenKH AS [Tên khách hàng],
-        hd.dNgaylap AS [Ngày lập],
-        hd.sTrangthai AS [Trạng thái]
-    FROM tblHoaDon hd
-    JOIN tblNhanVien nv ON hd.sMaNV = nv.sMaNV
-    JOIN tblKhachHang kh ON hd.sMaKH = kh.sMaKH
-");
+        SELECT 
+            hd.sMaHD as [Mã hóa đơn],
+            nv.sTenNV AS [Tên nhân viên],
+            kh.sTenKH AS [Tên khách hàng],
+            hd.sMaNV, 
+            hd.sMaKH, 
+            hd.dNgaylap AS [Ngày lập],
+            hd.sTrangthai AS [Trạng thái]
+        FROM tblHoaDon hd
+        JOIN tblNhanVien nv ON hd.sMaNV = nv.sMaNV
+        JOIN tblKhachHang kh ON hd.sMaKH = kh.sMaKH
+    ");
             dtgv_HoaDon.DataSource = dt;
+
+            dtgv_HoaDon.Columns["sMaNV"].Visible = false;
+            dtgv_HoaDon.Columns["sMaKH"].Visible = false;
         }
 
         private bool ValidateHoaDon()
@@ -134,8 +156,13 @@ namespace HSK_BookStoreManagement
                 DataGridViewRow row = dtgv_HoaDon.Rows[e.RowIndex];
                 cb_maNV.SelectedValue = row.Cells["sMaNV"].Value.ToString();
                 cb_maKH.SelectedValue = row.Cells["sMaKH"].Value.ToString();
-                dtp_ngayLap.Value = Convert.ToDateTime(row.Cells["dNgaylap"].Value);
-                cb_trangThai.Text = row.Cells["sTrangthai"].Value.ToString();
+                //dtp_ngayLap.Value = Convert.ToDateTime(row.Cells["dNgaylap"].Value);
+                //cb_trangThai.Text = row.Cells["sTrangthai"].Value.ToString();
+                
+                //cb_maNV.SelectedValue = row.Cells["Tên nhân viên"].Value.ToString();
+                //cb_maKH.SelectedValue = row.Cells["Tên khách hàng"].Value.ToString();
+                dtp_ngayLap.Value = Convert.ToDateTime(row.Cells["Ngày lập"].Value);
+                cb_trangThai.Text = row.Cells["Trạng thái"].Value.ToString();
             }
         }
 
@@ -143,8 +170,10 @@ namespace HSK_BookStoreManagement
         {
             if (dtgv_HoaDon.CurrentRow != null)
             {
-                string sMaHD = dtgv_HoaDon.CurrentRow.Cells["sMaHD"].Value.ToString();
-                ChiTietHoaDon frm = new ChiTietHoaDon(sMaHD);
+                string sMaHD = dtgv_HoaDon.CurrentRow.Cells["Mã hóa đơn"].Value.ToString();
+                string trangThai = dtgv_HoaDon.CurrentRow.Cells["Trạng thái"].Value.ToString();
+                //string sMaHD = dtgv_HoaDon.CurrentRow.Cells["sMaHD"].Value.ToString();
+                ChiTietHoaDon frm = new ChiTietHoaDon(sMaHD, trangThai);
                 frm.ShowDialog();
             }
         }

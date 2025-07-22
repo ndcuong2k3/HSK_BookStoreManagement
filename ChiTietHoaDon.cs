@@ -8,26 +8,34 @@ namespace HSK_BookStoreManagement
     public partial class ChiTietHoaDon : Form
     {
 
-        private string maHD; // Mã hóa đơn nhận từ form Hóa đơn
+        private string maHD;
+        private string trangThai;
         private DBHelper database = new DBHelper();
-        public ChiTietHoaDon(string sMaHD)
+        public ChiTietHoaDon(string sMaHD, string trangThai)
         {
             InitializeComponent();
             maHD = sMaHD;
+            this.trangThai = trangThai;
             LoadSach();
             HienThiChiTiet();
             TinhTongHoaDon();
+            if(trangThai.Equals("Đã thanh toán"))
+            {
+                btn_Them.Enabled = false;
+                btn_Sua.Enabled = false;
+                btn_Xoa.Enabled = false;
+            }
         }
 
         private void LoadSach()
         {
-            string sql = "SELECT sMasach, sTensach FROM tblSach";
-            database.FillComboBox(cb_MaSach, sql, "sTensach", "sMasach");
+            string sql = "SELECT sMaSP, sTenSP FROM tblSanPham";
+            database.FillComboBox(cb_MaSP, sql, "sTenSP", "sMaSP");
         }
 
         private void HienThiChiTiet()
         {
-            SqlParameter[] parameters = { new SqlParameter("@sMaHD", maHD) };
+            SqlParameter[] parameters = { new SqlParameter("@MaHD", maHD) };
             DataTable dt = database.ExecuteQuery("pr_HienThiChiTietHD", parameters, CommandType.StoredProcedure);
             database.FillDataGridView(dtgv_ChiTietHD, dt);
         }
@@ -47,15 +55,15 @@ namespace HSK_BookStoreManagement
 
         private void btn_Them_Click(object sender, EventArgs e)
         {
-            if (cb_MaSach.SelectedValue == null || string.IsNullOrWhiteSpace(txt_SoLuong.Text))
+            if (cb_MaSP.SelectedValue == null || string.IsNullOrWhiteSpace(txt_SoLuong.Text))
             {
-                MessageBox.Show("Vui lòng chọn sách và nhập số lượng.");
+                MessageBox.Show("Vui lòng chọn sản phẩm và nhập số lượng.");
                 return;
             }
 
             SqlParameter[] parameters = {
                 new SqlParameter("@sMaHD", maHD),
-                new SqlParameter("@sMaSach", cb_MaSach.SelectedValue.ToString()),
+                new SqlParameter("@sMaSP", cb_MaSP.SelectedValue.ToString()),
                 new SqlParameter("@iSL", int.Parse(txt_SoLuong.Text))
             };
 
@@ -66,7 +74,7 @@ namespace HSK_BookStoreManagement
 
         private void btn_Sua_Click(object sender, EventArgs e)
         {
-            if (cb_MaSach.SelectedValue == null || string.IsNullOrWhiteSpace(txt_SoLuong.Text))
+            if (cb_MaSP.SelectedValue == null || string.IsNullOrWhiteSpace(txt_SoLuong.Text))
             {
                 MessageBox.Show("Vui lòng chọn sách và nhập số lượng.");
                 return;
@@ -74,7 +82,7 @@ namespace HSK_BookStoreManagement
 
             SqlParameter[] parameters = {
                 new SqlParameter("@sMaHD", maHD),
-                new SqlParameter("@sMaSach", cb_MaSach.SelectedValue.ToString()),
+                new SqlParameter("@sMaSach", cb_MaSP.SelectedValue.ToString()),
                 new SqlParameter("@iSL", int.Parse(txt_SoLuong.Text))
             };
 
@@ -85,7 +93,7 @@ namespace HSK_BookStoreManagement
 
         private void btn_Xoa_Click(object sender, EventArgs e)
         {
-            if (cb_MaSach.SelectedValue == null)
+            if (cb_MaSP.SelectedValue == null)
             {
                 MessageBox.Show("Vui lòng chọn sách cần xóa.");
                 return;
@@ -93,7 +101,7 @@ namespace HSK_BookStoreManagement
 
             SqlParameter[] parameters = {
                 new SqlParameter("@sMaHD", maHD),
-                new SqlParameter("@sMaSach", cb_MaSach.SelectedValue.ToString())
+                new SqlParameter("@sMaSach", cb_MaSP.SelectedValue.ToString())
             };
 
             database.ExecuteNonQuery("pr_XoaChiTietHD", parameters, CommandType.StoredProcedure);

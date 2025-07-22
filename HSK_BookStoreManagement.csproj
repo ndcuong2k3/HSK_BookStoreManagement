@@ -145,7 +145,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CR_ThongKeSLSachTheoNXB.rpt</DependentUpon>
       <SubType>Component</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DangKi.cs">
       <SubType>Form</SubType>
@@ -217,6 +217,19 @@
     <Compile Include="ThongTinCaNhan.Designer.cs">
       <DependentUpon>ThongTinCaNhan.cs</DependentUpon>
     </Compile>
+    <Compile Include="TKSoLuongSPTheoDVSX.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TKSoLuongSPTheoDVSX.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="TKSoLuongSPTheoDVSXuat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TKSoLuongSPTheoDVSXuat.Designer.cs">
+      <DependentUpon>TKSoLuongSPTheoDVSXuat.cs</DependentUpon>
+    </Compile>
     <Compile Include="TrangChu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -246,7 +259,7 @@
     <EmbeddedResource Include="CR_ThongKeSLSachTheoNXB.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CR_ThongKeSLSachTheoNXB.cs</LastGenOutput>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="DangKi.resx">
       <DependentUpon>DangKi.cs</DependentUpon>
@@ -292,6 +305,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ThongTinCaNhan.resx">
       <DependentUpon>ThongTinCaNhan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TKSoLuongSPTheoDVSX.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TKSoLuongSPTheoDVSX.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TKSoLuongSPTheoDVSXuat.resx">
+      <DependentUpon>TKSoLuongSPTheoDVSXuat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TrangChu.resx">
       <DependentUpon>TrangChu.cs</DependentUpon>
