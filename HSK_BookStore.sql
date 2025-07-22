@@ -221,12 +221,12 @@ GO
 -- DỮ LIỆU MẪU: tblSanPham
 -- ==============================
 INSERT INTO tblSanPham VALUES
-('SP001', N'Truyện Doremon', 12000, 18000, 50, N'Sách'),
-('SP002', N'Vở ô ly 200 trang', 4000, 6000, 100, N'Vở'),
-('SP003', N'Bút bi Thiên Long', 2000, 3500, 200, N'Bút'),
-('SP004', N'Sách giáo khoa Toán', 15000, 20000, 40, N'Sách'),
-('SP005', N'Vở Campus 150 trang', 6000, 9000, 80, N'Vở'),
-('SP006', N'Bút mực xanh TL', 3000, 5000, 150, N'Bút');
+('SP001', N'Truyện Doremon', 12000, 18000, 50, N'Sách','DV001'),
+('SP002', N'Vở ô ly 200 trang', 4000, 6000, 100, N'Vở','DV002'),
+('SP003', N'Bút bi Thiên Long', 2000, 3500, 200, N'Bút','DV003'),
+('SP004', N'Sách giáo khoa Toán', 15000, 20000, 40, N'Sách','DV004'),
+('SP005', N'Vở Campus 150 trang', 6000, 9000, 80, N'Vở','DV005'),
+('SP006', N'Bút mực xanh TL', 3000, 5000, 150, N'Bút','DV006');
 GO
 
 -- ==============================
@@ -729,4 +729,67 @@ BEGIN
 	set iSL = iSL - @iSL
 END
 
-	
+CREATE OR ALTER PROCEDURE pr_ThemNhanVien
+    @sMaNV VARCHAR(5),
+    @sTenNV NVARCHAR(25),
+    @dNgaysinh DATE,
+    @sGioitinh NVARCHAR(4),
+    @sQuequan NVARCHAR(25),
+    @sSDT VARCHAR(11),
+    @sChucvu NVARCHAR(50),
+    @dNgayvaolam DATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO tblNhanVien (sMaNV, sTenNV, dNgaysinh, sGioitinh, sQuequan, sSDT, sChucvu, dNgayvaolam)
+    VALUES (@sMaNV, @sTenNV, @dNgaysinh, @sGioitinh, @sQuequan, @sSDT, @sChucvu, @dNgayvaolam);
+END
+
+CREATE OR ALTER PROCEDURE pr_SuaNhanVien
+    @sMaNV VARCHAR(5),
+    @sTenNV NVARCHAR(25),
+    @dNgaysinh DATE,
+    @sGioitinh NVARCHAR(4),
+    @sQuequan NVARCHAR(25),
+    @sSDT VARCHAR(11),
+    @sChucvu NVARCHAR(50),
+    @dNgayvaolam DATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE tblNhanVien
+    SET sTenNV = @sTenNV,
+        dNgaysinh = @dNgaysinh,
+        sGioitinh = @sGioitinh,
+        sQuequan = @sQuequan,
+        sSDT = @sSDT,
+        sChucvu = @sChucvu,
+        dNgayvaolam = @dNgayvaolam
+    WHERE sMaNV = @sMaNV;
+END
+
+CREATE OR ALTER PROCEDURE pr_XoaNhanVien
+    @sMaNV VARCHAR(5)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM tblNhanVien
+    WHERE sMaNV = @sMaNV;
+END
+
+CREATE OR ALTER PROCEDURE pr_TimKiemNhanVien
+    @keyword NVARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT * 
+    FROM tblNhanVien
+    WHERE sTenNV LIKE '%' + @keyword + '%'
+       OR sSDT LIKE '%' + @keyword + '%'
+       OR sChucvu LIKE '%' + @keyword + '%';
+END
+

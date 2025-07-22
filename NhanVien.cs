@@ -144,15 +144,25 @@ namespace HSK_BookStoreManagement
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dtgv_NhanVien.Rows[e.RowIndex];
-                selectedMaNV = row.Cells["sMaNV"].Value.ToString();
 
-                txt_TenNV.Text = row.Cells["sTenNV"].Value.ToString();
-                dtp_NgaySinh.Value = Convert.ToDateTime(row.Cells["dNgaysinh"].Value);
-                cb_GioiTinh.Text = row.Cells["sGioitinh"].Value.ToString();
-                txt_QueQuan.Text = row.Cells["sQuequan"].Value.ToString();
-                txt_SDT.Text = row.Cells["sSDT"].Value.ToString();
-                cbb_ChucVu.Text = row.Cells["sChucvu"].Value.ToString();
-                dtp_NgayVaoLam.Value = Convert.ToDateTime(row.Cells["dNgayvaolam"].Value);
+                // Kiểm tra không phải là dòng mới (new row)
+                if (!row.IsNewRow)
+                {
+                    selectedMaNV = row.Cells["sMaNV"].Value?.ToString() ?? "";
+
+                    txt_TenNV.Text = row.Cells["sTenNV"].Value?.ToString() ?? "";
+
+                    if (row.Cells["dNgaysinh"].Value != null)
+                        dtp_NgaySinh.Value = Convert.ToDateTime(row.Cells["dNgaysinh"].Value);
+
+                    cb_GioiTinh.Text = row.Cells["sGioitinh"].Value?.ToString() ?? "";
+                    txt_QueQuan.Text = row.Cells["sQuequan"].Value?.ToString() ?? "";
+                    txt_SDT.Text = row.Cells["sSDT"].Value?.ToString() ?? "";
+                    cbb_ChucVu.Text = row.Cells["sChucvu"].Value?.ToString() ?? "";
+
+                    if (row.Cells["dNgayvaolam"].Value != null)
+                        dtp_NgayVaoLam.Value = Convert.ToDateTime(row.Cells["dNgayvaolam"].Value);
+                }
             }
         }
 
@@ -160,6 +170,11 @@ namespace HSK_BookStoreManagement
         {
             ThongKeNVTheoGT thongKe = new ThongKeNVTheoGT();
             thongKe.ShowDialog();
+        }
+
+        private void btn_Them_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

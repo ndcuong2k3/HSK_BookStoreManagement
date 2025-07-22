@@ -235,7 +235,13 @@ namespace HSK_BookStoreManagement
                 int.TryParse(row.Cells["Giá bán"].Value?.ToString(), out int giaban);
                 int.TryParse(row.Cells["Giá nhập"].Value?.ToString(), out int gianhap);
                 int.TryParse(row.Cells["Năm xuất bản"].Value?.ToString(), out int namxb);
+                 string sqlMaSP = @"
+                SELECT ISNULL(MAX(CAST(SUBSTRING(sMaSP, 3, LEN(sMaSP) - 2) AS INT)), 0)
+                FROM tblSanPham";
 
+                int maxSo = Convert.ToInt32(dBHelper.ExecuteScalar(sqlMaSP));
+                int soMoi = maxSo + 1;
+                string maSP = "SP" + soMoi.ToString("D3");
                 // Kiểm tra tên nhà xuất bản
                 if (string.IsNullOrEmpty(tenNXB))
                 {
@@ -281,6 +287,7 @@ namespace HSK_BookStoreManagement
                 }
                 else
                 {
+                    masach = maSP;
                     // Validate đầu vào trước khi thêm mới
                     if (string.IsNullOrWhiteSpace(masach) || string.IsNullOrWhiteSpace(tensach))
                     {
