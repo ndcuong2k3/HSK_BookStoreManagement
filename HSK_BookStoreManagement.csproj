@@ -221,8 +221,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TKSoLuongSPTheoDVSX.rpt</DependentUpon>
-      <SubType>Component</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="TKSoLuongSPTheoDVSXuat.cs">
       <SubType>Form</SubType>
