@@ -125,7 +125,7 @@ namespace HSK_BookStoreManagement
             this.dtgv_NhanVien.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtgv_NhanVien.Name = "dtgv_NhanVien";
             this.dtgv_NhanVien.RowHeadersWidth = 51;
-            this.dtgv_NhanVien.Size = new System.Drawing.Size(892, 150);
+            this.dtgv_NhanVien.Size = new System.Drawing.Size(892, 185);
             this.dtgv_NhanVien.TabIndex = 7;
             this.dtgv_NhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgv_NhanVien_CellClick);
             // 
@@ -135,48 +135,52 @@ namespace HSK_BookStoreManagement
             this.cb_GioiTinh.Location = new System.Drawing.Point(331, 34);
             this.cb_GioiTinh.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cb_GioiTinh.Name = "cb_GioiTinh";
-            this.cb_GioiTinh.Size = new System.Drawing.Size(69, 24);
+            this.cb_GioiTinh.Size = new System.Drawing.Size(114, 24);
             this.cb_GioiTinh.TabIndex = 8;
             // 
             // btn_Them
             // 
-            this.btn_Them.Location = new System.Drawing.Point(33, 109);
+            this.btn_Them.Location = new System.Drawing.Point(67, 108);
             this.btn_Them.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Them.Name = "btn_Them";
-            this.btn_Them.Size = new System.Drawing.Size(94, 23);
+            this.btn_Them.Size = new System.Drawing.Size(100, 29);
             this.btn_Them.TabIndex = 9;
             this.btn_Them.Text = "Thêm ";
             this.btn_Them.UseVisualStyleBackColor = true;
+            this.btn_Them.Click += new System.EventHandler(this.btn_Them_Click);
             // 
             // btn_Sua
             // 
-            this.btn_Sua.Location = new System.Drawing.Point(245, 109);
+            this.btn_Sua.Location = new System.Drawing.Point(331, 108);
             this.btn_Sua.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Sua.Name = "btn_Sua";
-            this.btn_Sua.Size = new System.Drawing.Size(94, 23);
+            this.btn_Sua.Size = new System.Drawing.Size(100, 29);
             this.btn_Sua.TabIndex = 10;
             this.btn_Sua.Text = "Sửa";
             this.btn_Sua.UseVisualStyleBackColor = true;
+            this.btn_Sua.Click += new System.EventHandler(this.btn_Sua_Click);
             // 
             // btn_Xoa
             // 
-            this.btn_Xoa.Location = new System.Drawing.Point(467, 109);
+            this.btn_Xoa.Location = new System.Drawing.Point(564, 108);
             this.btn_Xoa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Xoa.Name = "btn_Xoa";
-            this.btn_Xoa.Size = new System.Drawing.Size(94, 23);
+            this.btn_Xoa.Size = new System.Drawing.Size(100, 29);
             this.btn_Xoa.TabIndex = 11;
             this.btn_Xoa.Text = "Xóa";
             this.btn_Xoa.UseVisualStyleBackColor = true;
+            this.btn_Xoa.Click += new System.EventHandler(this.btn_Xoa_Click);
             // 
             // btn_TimKiem
             // 
-            this.btn_TimKiem.Location = new System.Drawing.Point(33, 147);
+            this.btn_TimKiem.Location = new System.Drawing.Point(527, 149);
             this.btn_TimKiem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_TimKiem.Name = "btn_TimKiem";
-            this.btn_TimKiem.Size = new System.Drawing.Size(94, 23);
+            this.btn_TimKiem.Size = new System.Drawing.Size(100, 29);
             this.btn_TimKiem.TabIndex = 12;
             this.btn_TimKiem.Text = "Tìm kiếm";
             this.btn_TimKiem.UseVisualStyleBackColor = true;
+            this.btn_TimKiem.Click += new System.EventHandler(this.btn_TimKiem_Click);
             // 
             // txt_TenNV
             // 
@@ -196,7 +200,7 @@ namespace HSK_BookStoreManagement
             // 
             // txt_TimKiem
             // 
-            this.txt_TimKiem.Location = new System.Drawing.Point(172, 149);
+            this.txt_TimKiem.Location = new System.Drawing.Point(248, 156);
             this.txt_TimKiem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_TimKiem.Name = "txt_TimKiem";
             this.txt_TimKiem.Size = new System.Drawing.Size(248, 22);
@@ -228,13 +232,13 @@ namespace HSK_BookStoreManagement
             // 
             // btn_In
             // 
-            this.btn_In.Location = new System.Drawing.Point(615, 147);
+            this.btn_In.Location = new System.Drawing.Point(786, 108);
             this.btn_In.Name = "btn_In";
-            this.btn_In.Size = new System.Drawing.Size(75, 23);
+            this.btn_In.Size = new System.Drawing.Size(100, 29);
             this.btn_In.TabIndex = 21;
             this.btn_In.Text = "IN";
             this.btn_In.UseVisualStyleBackColor = true;
-            this.btn_In.Click += new System.EventHandler(this.btn_In_Click);
+            this.btn_In.Click += new System.EventHandler(this.btn_Them_Click);
             // 
             // cbb_ChucVu
             // 
@@ -248,7 +252,7 @@ namespace HSK_BookStoreManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(967, 360);
+            this.ClientSize = new System.Drawing.Size(967, 382);
             this.Controls.Add(this.cbb_ChucVu);
             this.Controls.Add(this.btn_In);
             this.Controls.Add(this.txt_SDT);

@@ -77,7 +77,7 @@ namespace HSK_BookStoreManagement
                 return;
             }
 
-            string insertSql = "INSERT INTO tblKhachHang VALUES (@sMaKH, @sTenKH, @sSDT, @sDiachi)";
+            string insertSql = "INSERT INTO tblKhachHang VALUES (@sMaKH, @sTenKH, @sDiachi,@sSDT )";
             SqlParameter[] insertParams = {
                 new SqlParameter("@sMaKH", txtMaKH.Text),
                 new SqlParameter("@sTenKH", txtTenKH.Text),
