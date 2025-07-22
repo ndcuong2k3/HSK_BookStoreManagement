@@ -21,49 +21,104 @@ GO
 -- ==============================
 -- BẢNG SẢN PHẨM (CHA)
 -- ==============================
+--CREATE TABLE tblSanPham (
+--    sMaSP VARCHAR(5) PRIMARY KEY,
+--    sTenSP NVARCHAR(50) NOT NULL,
+--    iGiaNhap INT CHECK (iGiaNhap > 0),
+--    iGiaBan INT CHECK (iGiaBan > 0),
+--    iSL INT CHECK (iSL >= 0),
+--    sLoai NVARCHAR(20) CHECK (sLoai IN (N'Vở', N'Bút', N'Sách'))
+--);
+--GO
+
+--ALTER TABLE tblSanPham
+--ADD sMaDV VARCHAR(5);
+
+--ALTER TABLE tblSanPham
+--ADD CONSTRAINT FK_SanPham_DonViSanXuat
+--FOREIGN KEY (sMaDV) REFERENCES tblDonViSanXuat(sMaDV)
+--ON DELETE SET NULL;
+
 CREATE TABLE tblSanPham (
     sMaSP VARCHAR(5) PRIMARY KEY,
     sTenSP NVARCHAR(50) NOT NULL,
     iGiaNhap INT CHECK (iGiaNhap > 0),
     iGiaBan INT CHECK (iGiaBan > 0),
     iSL INT CHECK (iSL >= 0),
-    sLoai NVARCHAR(20) CHECK (sLoai IN (N'Vở', N'Bút', N'Sách'))
+    sLoai NVARCHAR(20) CHECK (sLoai IN (N'Vở', N'Bút', N'Sách')),
+    sMaDV VARCHAR(5) REFERENCES tblDonViSanXuat(sMaDV) ON DELETE SET NULL
 );
 GO
+
 
 -- ==============================
 -- BẢNG SÁCH
 -- ==============================
+--CREATE TABLE tblSach (
+--    sMaSP VARCHAR(5) PRIMARY KEY REFERENCES tblSanPham(sMaSP) ON DELETE CASCADE,
+--    sMaDV VARCHAR(5) REFERENCES tblDonViSanXuat(sMaDV),
+--    sTacgia NVARCHAR(50),
+--    sTheloai NVARCHAR(50),
+--    iNamXB INT
+--);
+--GO
 CREATE TABLE tblSach (
     sMaSP VARCHAR(5) PRIMARY KEY REFERENCES tblSanPham(sMaSP) ON DELETE CASCADE,
-    sMaDV VARCHAR(5) REFERENCES tblDonViSanXuat(sMaDV),
     sTacgia NVARCHAR(50),
     sTheloai NVARCHAR(50),
-    iNamXB INT
+    iNamXB INT CHECK (iNamXB >= 0)
 );
 GO
+
 
 -- ==============================
 -- BẢNG VỞ
 -- ==============================
+--CREATE TABLE tblVo (
+--    sMaSP VARCHAR(5) PRIMARY KEY REFERENCES tblSanPham(sMaSP) ON DELETE CASCADE,
+--    iSoTrang INT CHECK (iSoTrang > 0),
+--    sKieuDongKe NVARCHAR(30),
+--    sMaDV VARCHAR(5) REFERENCES tblDonViSanXuat(sMaDV)
+--);
+--GO
+--alter table tblVo
+--drop constraint FK__tblVo__sMaDV__31EC6D26
+
+--ALTER TABLE tblVo
+--DROP COLUMN sMaDV;
+
 CREATE TABLE tblVo (
     sMaSP VARCHAR(5) PRIMARY KEY REFERENCES tblSanPham(sMaSP) ON DELETE CASCADE,
     iSoTrang INT CHECK (iSoTrang > 0),
-    sKieuDongKe NVARCHAR(30),
-    sMaDV VARCHAR(5) REFERENCES tblDonViSanXuat(sMaDV)
+    sKieuDongKe NVARCHAR(30)
 );
 GO
+
+
 
 -- ==============================
 -- BẢNG BÚT
 -- ==============================
+--CREATE TABLE tblBut (
+--    sMaSP VARCHAR(5) PRIMARY KEY REFERENCES tblSanPham(sMaSP) ON DELETE CASCADE,
+--    sLoaiBut NVARCHAR(30),
+--    sMauBut NVARCHAR(30),
+--    sMaDV VARCHAR(5) REFERENCES tblDonViSanXuat(sMaDV)
+--);
+--GO
+
+--alter table tblBut
+--drop constraint FK__tblBut__sMaDV__35BCFE0A
+--ALTER TABLE tblBut
+--DROP COLUMN sMaDV;
+
 CREATE TABLE tblBut (
     sMaSP VARCHAR(5) PRIMARY KEY REFERENCES tblSanPham(sMaSP) ON DELETE CASCADE,
     sLoaiBut NVARCHAR(30),
-    sMauBut NVARCHAR(30),
-    sMaDV VARCHAR(5) REFERENCES tblDonViSanXuat(sMaDV)
+    sMauBut NVARCHAR(30)
 );
 GO
+
 
 -- ==============================
 -- BẢNG NHÂN VIÊN
@@ -288,10 +343,11 @@ SELECT
     s.iNamXB AS [Năm xuất bản]
 FROM tblSach s
 JOIN tblSanPham sp ON s.sMaSP = sp.sMaSP
-LEFT JOIN tblDonViSanXuat dv ON s.sMaDV = dv.sMaDV
+LEFT JOIN tblDonViSanXuat dv ON sp.sMaDV = dv.sMaDV
 WHERE sp.sLoai = N'Sách'
 ;
 GO
+
 select * from tblSach
 CREATE OR ALTER PROCEDURE prThemSach
     @sMaSP VARCHAR(5),
@@ -305,11 +361,11 @@ CREATE OR ALTER PROCEDURE prThemSach
     @sMaDV VARCHAR(5)
 AS
 BEGIN
-    INSERT INTO tblSanPham (sMaSP, sTenSP, iGiaNhap, iGiaBan, iSL, sLoai)
-    VALUES (@sMaSP, @sTenSP, @iGiaNhap, @iGiaBan, @iSL, N'Sách');
+    INSERT INTO tblSanPham (sMaSP, sTenSP, iGiaNhap, iGiaBan, iSL, sLoai, sMaDV)
+    VALUES (@sMaSP, @sTenSP, @iGiaNhap, @iGiaBan, @iSL, N'Sách', @sMaDV);
 
-    INSERT INTO tblSach (sMaSP, sTacgia, sTheloai, iNamXB, sMaDV)
-    VALUES (@sMaSP, @sTacgia, @sTheloai, @iNamXB, @sMaDV);
+    INSERT INTO tblSach (sMaSP, sTacgia, sTheloai, iNamXB)
+    VALUES (@sMaSP, @sTacgia, @sTheloai, @iNamXB);
 END;
 GO
 
@@ -329,14 +385,14 @@ BEGIN
     SET sTenSP = @sTenSP,
         iGiaNhap = @iGiaNhap,
         iGiaBan = @iGiaBan,
-        iSL = @iSL
+        iSL = @iSL,
+        sMaDV = @sMaDV
     WHERE sMaSP = @sMaSP;
 
     UPDATE tblSach
     SET sTacgia = @sTacgia,
         sTheloai = @sTheloai,
-        iNamXB = @iNamXB,
-        sMaDV = @sMaDV
+        iNamXB = @iNamXB
     WHERE sMaSP = @sMaSP;
 END;
 GO
@@ -363,12 +419,12 @@ CREATE OR ALTER PROCEDURE prThemVo
 AS
 BEGIN
     -- Thêm vào bảng sản phẩm
-    INSERT INTO tblSanPham (sMaSP, sTenSP, iGiaNhap, iGiaBan, iSL, sLoai)
-    VALUES (@sMaSP, @sTenSP, @iGiaNhap, @iGiaBan, @iSL, N'Vở');
+    INSERT INTO tblSanPham (sMaSP, sTenSP, iGiaNhap, iGiaBan, iSL, sLoai,sMaDV)
+    VALUES (@sMaSP, @sTenSP, @iGiaNhap, @iGiaBan, @iSL, N'Vở',@sMaDV);
 
     -- Thêm vào bảng vở
-    INSERT INTO tblVo (sMaSP, iSoTrang, sKieuDongKe, sMaDV)
-    VALUES (@sMaSP, @iSoTrang, @sKieuDongKe, @sMaDV);
+    INSERT INTO tblVo (sMaSP, iSoTrang, sKieuDongKe)
+    VALUES (@sMaSP, @iSoTrang, @sKieuDongKe);
 END;
 GO
 CREATE OR ALTER PROCEDURE prSuaVo
@@ -387,14 +443,14 @@ BEGIN
     SET sTenSP = @sTenSP,
         iGiaNhap = @iGiaNhap,
         iGiaBan = @iGiaBan,
-        iSL = @iSL
+        iSL = @iSL,
+        sMaDV = @sMaDV
     WHERE sMaSP = @sMaSP;
 
     -- Cập nhật bảng vở
     UPDATE tblVo
     SET iSoTrang = @iSoTrang,
-        sKieuDongKe = @sKieuDongKe,
-        sMaDV = @sMaDV
+        sKieuDongKe = @sKieuDongKe
     WHERE sMaSP = @sMaSP;
 END;
 GO
@@ -417,7 +473,7 @@ SELECT
     sp.iSL AS [Số lượng]
 FROM tblVo v
 JOIN tblSanPham sp ON v.sMaSP = sp.sMaSP
-LEFT JOIN tblDonViSanXuat dv ON v.sMaDV = dv.sMaDV
+LEFT JOIN tblDonViSanXuat dv ON sp.sMaDV = dv.sMaDV
 WHERE sp.sLoai = N'Vở';
 GO
 select * from tblSanPham
@@ -435,7 +491,7 @@ SELECT
     sp.iSL AS [Số lượng]
 FROM tblBut b
 JOIN tblSanPham sp ON b.sMaSP = sp.sMaSP
-LEFT JOIN tblDonViSanXuat dv ON b.sMaDV = dv.sMaDV
+LEFT JOIN tblDonViSanXuat dv ON sp.sMaDV = dv.sMaDV
 WHERE sp.sLoai = N'Bút';
 GO
 
@@ -453,12 +509,12 @@ CREATE OR ALTER PROCEDURE prThemBut
 AS
 BEGIN
     -- Thêm vào bảng sản phẩm
-    INSERT INTO tblSanPham (sMaSP, sTenSP, iGiaNhap, iGiaBan, iSL, sLoai)
-    VALUES (@sMaSP, @sTenSP, @iGiaNhap, @iGiaBan, @iSL, N'Bút');
+    INSERT INTO tblSanPham (sMaSP, sTenSP, iGiaNhap, iGiaBan, iSL, sLoai,sMaDV)
+    VALUES (@sMaSP, @sTenSP, @iGiaNhap, @iGiaBan, @iSL, N'Bút',@sMaDV);
 
     -- Thêm vào bảng bút
-    INSERT INTO tblBut (sMaSP, sLoaiBut, sMauBut, sMaDV)
-    VALUES (@sMaSP, @sLoaiBut, @sMauBut, @sMaDV);
+    INSERT INTO tblBut (sMaSP, sLoaiBut, sMauBut)
+    VALUES (@sMaSP, @sLoaiBut, @sMauBut );
 END;
 GO
 
@@ -478,14 +534,14 @@ BEGIN
     SET sTenSP = @sTenSP,
         iGiaNhap = @iGiaNhap,
         iGiaBan = @iGiaBan,
-        iSL = @iSL
+        iSL = @iSL,
+        sMaDV = @sMaDV
     WHERE sMaSP = @sMaSP;
 
     -- Cập nhật bảng bút
     UPDATE tblBut
     SET sLoaiBut = @sLoaiBut,
-        sMauBut = @sMauBut,
-        sMaDV = @sMaDV
+        sMauBut = @sMauBut
     WHERE sMaSP = @sMaSP;
 END;
 GO
@@ -506,7 +562,7 @@ BEGIN
         COUNT(s.sMaSP) AS [Số lượng sách]
     FROM tblSach s
     JOIN tblSanPham sp ON s.sMaSP = sp.sMaSP
-    LEFT JOIN tblDonViSanXuat dv ON s.sMaDV = dv.sMaDV
+    LEFT JOIN tblDonViSanXuat dv ON sp.sMaDV = dv.sMaDV
     GROUP BY dv.sTenDV
 END;
 GO
@@ -517,10 +573,41 @@ select * from tblSanPham
 
 select * from tblVo
 
-CREATE PROCEDURE sp_ThongKeNhanVienTheoGioiTinh
+--Thống kê nhân viên theo giới tính
+CREATE PROCEDURE sp_ThongKeNhanVien_TheoGioiTinh
 AS
 BEGIN
-    SELECT GioiTinh, COUNT(*) AS SoLuong
-    FROM NhanVien
-    GROUP BY GioiTinh;
+    SELECT 
+        sGioitinh AS [Giới tính],
+        COUNT(*) AS [Số lượng nhân viên]
+    FROM 
+        tblNhanVien
+    GROUP BY 
+        sGioitinh;
 END;
+GO
+--Báo cáo doanh thu theo nhân viên
+CREATE OR ALTER PROC BaoCao_DoanhThuTheoNhanVien
+AS
+BEGIN
+	SELECT 
+		nv.sMaNV AS [Mã nhân viên], 
+		nv.sTenNV AS [Tên nhân viên], 
+		COUNT(DISTINCT hd.sMaHD) AS [Số lượng hóa đơn], 
+		SUM(cthd.iSL * sp.iGiaBan) AS [Doanh thu]
+	FROM tblNhanVien nv 
+		INNER JOIN tblHoaDon hd ON nv.sMaNV = hd.sMaNV 
+		JOIN tblChiTietHD cthd ON hd.sMaHD = cthd.sMaHD
+		JOIN tblSanPham sp ON cthd.sMaSP = sp.sMaSP
+	GROUP BY nv.sMaNV, nv.sTenNV
+END
+
+CREATE or alter proc prThongKeSLSanPhamTheoDVSX
+as
+	begin
+		select 
+		from tblSanPham sp join tblDonViSanXuat dvsx on sp.sM = dvsx.sMaDV
+	end
+
+
+	

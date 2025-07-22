@@ -348,7 +348,7 @@ namespace HSK_BookStoreManagement
         {
             string query = @"
             SELECT sp.sTenSP, sp.iGiaNhap, sp.iGiaBan, sp.iSL,
-                   b.sMauBut, b.sLoaiBut, b.sMaDV
+                   b.sMauBut, b.sLoaiBut, sp.sMaDV
             FROM tblSanPham sp
             JOIN tblBut b ON sp.sMaSP = b.sMaSP
             WHERE sp.sMaSP = @MaSP

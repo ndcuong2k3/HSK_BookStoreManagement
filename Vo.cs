@@ -423,7 +423,7 @@ namespace HSK_BookStoreManagement
         {
             string query = @"
             SELECT sp.sTenSP, sp.iGiaNhap, sp.iGiaBan, sp.iSL,
-                   v.iSoTrang, v.sKieuDongKe, v.sMaDV
+                   v.iSoTrang, v.sKieuDongKe, sp.sMaDV
             FROM tblSanPham sp
             JOIN tblVo v ON sp.sMaSP = v.sMaSP
             WHERE sp.sMaSP = @MaSP
