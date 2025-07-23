@@ -148,5 +148,10 @@ namespace HSK_BookStoreManagement
             cb_MaSP.SelectedValue = row.Cells["Mã sản phẩm"].Value?.ToString() ?? "";
             txt_SoLuong.Text = row.Cells["Số lượng"].Value?.ToString() ?? "";
         }
+
+        private void ChiTietHoaDon_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

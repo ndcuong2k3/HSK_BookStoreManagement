@@ -190,5 +190,14 @@ namespace HSK_BookStoreManagement
             groupBox2.Controls.Add(bC);
             bC.Show();
         }
+
+        private void btnPhieuNhap_Click(object sender, EventArgs e)
+        {
+            PhieuNhap pN = new PhieuNhap();
+            pN.MdiParent = this;
+            groupBox2.Text = "Quản lý phiếu nhập";
+            groupBox2.Controls.Add(pN);
+            pN.Show();
+        }
     }
 }

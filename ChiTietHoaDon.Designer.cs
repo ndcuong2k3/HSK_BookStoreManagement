@@ -139,6 +139,7 @@
             this.Controls.Add(this.dtgv_ChiTietHD);
             this.Name = "ChiTietHoaDon";
             this.Text = "ChiTietHoaDon";
+            this.Load += new System.EventHandler(this.ChiTietHoaDon_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgv_ChiTietHD)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

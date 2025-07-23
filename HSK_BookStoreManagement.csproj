@@ -140,6 +140,12 @@
     <Compile Include="ChiTietHoaDon.Designer.cs">
       <DependentUpon>ChiTietHoaDon.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChiTietPhieuNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChiTietPhieuNhap.Designer.cs">
+      <DependentUpon>ChiTietPhieuNhap.cs</DependentUpon>
+    </Compile>
     <Compile Include="CR_ThongKeSLSachTheoNXB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -183,6 +189,12 @@
     </Compile>
     <Compile Include="DonViSanXuat.Designer.cs">
       <DependentUpon>DonViSanXuat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PhieuNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PhieuNhap.Designer.cs">
+      <DependentUpon>PhieuNhap.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -256,6 +268,9 @@
     <EmbeddedResource Include="ChiTietHoaDon.resx">
       <DependentUpon>ChiTietHoaDon.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChiTietPhieuNhap.resx">
+      <DependentUpon>ChiTietPhieuNhap.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CR_ThongKeSLSachTheoNXB.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CR_ThongKeSLSachTheoNXB.cs</LastGenOutput>
@@ -278,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DonViSanXuat.resx">
       <DependentUpon>DonViSanXuat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PhieuNhap.resx">
+      <DependentUpon>PhieuNhap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

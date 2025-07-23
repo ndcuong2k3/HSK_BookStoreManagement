@@ -190,7 +190,6 @@ CREATE TABLE tblPhieuNhap (
     sGhiChu NVARCHAR(100)
 );
 GO
-
 -- ==============================
 -- BẢNG CHI TIẾT PHIẾU NHẬP
 -- ==============================
@@ -201,8 +200,27 @@ CREATE TABLE tblChiTietPN (
     CONSTRAINT pk_CTPN PRIMARY KEY (sMaPN, sMaSP)
 );
 GO
+
+ALTER TABLE tblPhieuNhap
+ADD sMaDV VARCHAR(5) REFERENCES tblDonViSanXuat(sMaDV);
+
 USE BookStoreManagement_Final;
 GO
+
+create view vvPhieuNhap
+as
+ SELECT 
+    pn.sMaPN as [Mã phiếu nhập],
+    nv.sTenNV AS [Tên nhân viên],
+    dv.sTenDV AS [Tên đơn vị],
+    pn.sMaNV, 
+    pn.sMaDV, 
+    pn.dNgayNhap AS [Ngày nhập],
+    pn.sGhiChu AS [Ghi chú]
+FROM tblPhieuNhap pn
+    JOIN tblNhanVien nv ON pn.sMaNV = nv.sMaNV
+    JOIN tblDonViSanXuat dv ON pn.sMaDV = dv.sMaDV
+
 
 -- ==============================
 -- DỮ LIỆU MẪU: tblDonViSanXuat
@@ -644,7 +662,7 @@ BEGIN
 		JOIN tblSanPham sp ON cthd.sMaSP = sp.sMaSP
 	GROUP BY nv.sMaNV, nv.sTenNV
 END
-
+select * from tblChiTietHD
 CREATE or alter proc prThongKeSLSanPhamTheoDVSX
 as
 	begin
@@ -658,6 +676,7 @@ AS
 BEGIN
     SELECT 
         hd.sMaHD AS [Mã hóa đơn], 
+		sp.sMaSP AS [Mã sản phẩm],
         sp.sTenSP AS [Tên sản phẩm], 
         cthd.iSL AS [Số lượng],
         sp.iGiaBan AS [Đơn giá],
@@ -840,4 +859,58 @@ BEGIN
 
     INSERT INTO tblNhanVien (sMaNV, sTenNV, dNgaysinh, sGioitinh, sQuequan, sSDT, sChucvu, dNgayvaolam)
     VALUES (@sMaNV, @sTenNV, @dNgaysinh, @sGioitinh, @sQuequan, @sSDT, @sChucvu, @dNgayvaolam);
+END
+
+CREATE OR ALTER PROC pr_HienThiChiTietPN @MaPN VARCHAR(5) 
+AS
+BEGIN
+    SELECT 
+        pn.sMaPN AS [Mã phiếu nhập], 
+		sp.sMaSP AS [Mã sản phẩm],
+        sp.sTenSP AS [Tên sản phẩm], 
+        ctpn.iSoLuong AS [Số lượng],
+        sp.iGiaNhap AS [Giá nhập],
+        (ctpn.iSoLuong * sp.iGiaNhap) AS [Tổng tiền]
+    FROM tblPhieuNhap pn 
+    INNER JOIN tblChiTietPN ctpn ON pn.sMaPN = ctpn.sMaPN
+    INNER JOIN tblSanPham sp ON ctpn.sMaSP = sp.sMaSP
+    WHERE pn.sMaPN = @MaPN
+END
+
+CREATE OR ALTER PROC sp_ThemChiTietPhieuNhap
+    @sMaPN VARCHAR(10),
+    @sMaSP VARCHAR(10),
+    @iSoLuong INT
+AS
+BEGIN
+    INSERT INTO tblChiTietPN(sMaPN, sMaSP, iSoLuong)
+    VALUES (@sMaPN, @sMaSP, @iSoLuong);
+END
+GO
+
+CREATE OR ALTER PROCEDURE pr_SuaChiTietPN
+    @sMaPN VARCHAR(5),
+    @sMaSP VARCHAR(5),
+    @iSoluong INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    -- Cập nhật số lượng tồn kho: trừ đi cũ, cộng mới
+    UPDATE tblSanPham
+    SET iSL = iSL + @iSoluong
+    WHERE sMaSP = @sMaSP;
+
+    -- Cập nhật lại chi tiết phiếu nhập
+    UPDATE tblChiTietPN
+    SET iSoLuong = @iSoluong
+    WHERE sMaPN = @sMaPN AND sMaSP = @sMaSP;
+END
+
+CREATE OR ALTER PROCEDURE pr_XoaChiTietPN
+    @sMaPN NVARCHAR(10),
+    @sMaSP NVARCHAR(10)
+AS
+BEGIN
+    DELETE FROM tblChiTietPN
+    WHERE sMaPN = @sMaPN AND sMaSP = @sMaSP
 END
