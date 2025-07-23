@@ -18,8 +18,6 @@ CREATE TABLE tblDonViSanXuat (
 );
 GO
 
-
-
 -- ==============================
 -- BẢNG SẢN PHẨM (CHA)
 -- ==============================
@@ -233,24 +231,24 @@ GO
 -- DỮ LIỆU MẪU: tblSach
 -- ==============================
 INSERT INTO tblSach VALUES
-('SP001', 'DV001', N'Fujiko Fujio', N'Truyện tranh', 2001),
-('SP004', 'DV001', N'Bộ GD&ĐT', N'Sách giáo khoa', 2023);
+('SP001', N'Fujiko Fujio', N'Truyện tranh', 2001),
+('SP004', N'Bộ GD&ĐT', N'Sách giáo khoa', 2023);
 GO
 
 -- ==============================
 -- DỮ LIỆU MẪU: tblVo
 -- ==============================
 INSERT INTO tblVo VALUES
-('SP002', 200, N'Ô ly', 'DV002'),
-('SP005', 150, N'Kẻ ngang', 'DV004');
+('SP002', 200, N'Ô ly'),
+('SP005', 150, N'Kẻ ngang');
 GO
 
 -- ==============================
 -- DỮ LIỆU MẪU: tblBut
 -- ==============================
 INSERT INTO tblBut VALUES
-('SP003', N'Bút bi', N'Mực đen', 'DV003'),
-('SP006', N'Bút mực', N'Mực xanh', 'DV003');
+('SP003', N'Bút bi', N'Mực đen'),
+('SP006', N'Bút mực', N'Mực xanh');
 GO
 
 -- ==============================
@@ -793,3 +791,53 @@ BEGIN
        OR sChucvu LIKE '%' + @keyword + '%';
 END
 
+CREATE OR ALTER PROCEDURE pr_TimKiemHoaDon
+    @TuKhoa NVARCHAR(100)
+AS
+BEGIN
+    SELECT 
+        hd.sMaHD AS [Mã hóa đơn],
+        nv.sTenNV AS [Tên nhân viên],
+        kh.sTenKH AS [Tên khách hàng],
+        hd.dNgaylap AS [Ngày lập],
+        hd.sTrangthai AS [Trạng thái]
+    FROM tblHoaDon hd
+    JOIN tblNhanVien nv ON hd.sMaNV = nv.sMaNV
+    JOIN tblKhachHang kh ON hd.sMaKH = kh.sMaKH
+    WHERE 
+        hd.sMaHD LIKE '%' + @TuKhoa + '%' OR
+        kh.sTenKH LIKE N'%' + @TuKhoa + '%' OR
+        CONVERT(NVARCHAR, hd.dNgaylap, 103) LIKE '%' + @TuKhoa + '%'
+END
+GO
+create or alter proc pr_SuaChiTietHD @sMaHD varchar(5), @sMaSach varchar(5), @iSL int
+as
+	begin
+		update tblChiTietHD
+		set	iSL = @iSL
+		where sMaHD = @sMaHD
+	end
+
+create or alter proc pr_XoaChiTietHD @sMaHD varchar(5), @sMaSach varchar(5)
+as
+	begin
+		delete tblChiTietHD
+		where sMaHD = @sMaHD and sMaSP = @sMaSach
+	end
+
+create or alter PROCEDURE [dbo].[pr_ThemNhanVien]
+    @sMaNV VARCHAR(5),
+    @sTenNV NVARCHAR(25),
+    @dNgaysinh DATE,
+    @sGioitinh NVARCHAR(4),
+    @sQuequan NVARCHAR(25),
+    @sSDT VARCHAR(11),
+    @sChucvu NVARCHAR(50),
+    @dNgayvaolam DATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO tblNhanVien (sMaNV, sTenNV, dNgaysinh, sGioitinh, sQuequan, sSDT, sChucvu, dNgayvaolam)
+    VALUES (@sMaNV, @sTenNV, @dNgaysinh, @sGioitinh, @sQuequan, @sSDT, @sChucvu, @dNgayvaolam);
+END

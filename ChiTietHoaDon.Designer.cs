@@ -49,6 +49,7 @@
             this.dtgv_ChiTietHD.RowTemplate.Height = 24;
             this.dtgv_ChiTietHD.Size = new System.Drawing.Size(601, 212);
             this.dtgv_ChiTietHD.TabIndex = 0;
+            this.dtgv_ChiTietHD.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgv_ChiTietHD_CellClick);
             // 
             // btn_Them
             // 

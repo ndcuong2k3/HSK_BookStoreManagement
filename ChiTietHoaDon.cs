@@ -7,10 +7,10 @@ namespace HSK_BookStoreManagement
 {
     public partial class ChiTietHoaDon : Form
     {
-
         private string maHD;
         private string trangThai;
         private DBHelper database = new DBHelper();
+
         public ChiTietHoaDon(string sMaHD, string trangThai)
         {
             InitializeComponent();
@@ -19,7 +19,8 @@ namespace HSK_BookStoreManagement
             LoadSach();
             HienThiChiTiet();
             TinhTongHoaDon();
-            if(trangThai.Equals("Đã thanh toán"))
+
+            if (trangThai.Equals("Đã thanh toán"))
             {
                 btn_Them.Enabled = false;
                 btn_Sua.Enabled = false;
@@ -38,6 +39,7 @@ namespace HSK_BookStoreManagement
             SqlParameter[] parameters = { new SqlParameter("@MaHD", maHD) };
             DataTable dt = database.ExecuteQuery("pr_HienThiChiTietHD", parameters, CommandType.StoredProcedure);
             database.FillDataGridView(dtgv_ChiTietHD, dt);
+            dtgv_ChiTietHD.Columns["Mã sản phẩm"].Visible = false;
         }
 
         private void TinhTongHoaDon()
@@ -61,15 +63,23 @@ namespace HSK_BookStoreManagement
                 return;
             }
 
-            SqlParameter[] parameters = {
-                new SqlParameter("@sMaHD", maHD),
-                new SqlParameter("@sMaSP", cb_MaSP.SelectedValue.ToString()),
-                new SqlParameter("@iSL", int.Parse(txt_SoLuong.Text))
-            };
+            try
+            {
+                SqlParameter[] parameters = {
+                    new SqlParameter("@sMaHD", maHD),
+                    new SqlParameter("@sMaSP", cb_MaSP.SelectedValue.ToString()),
+                    new SqlParameter("@iSL", int.Parse(txt_SoLuong.Text))
+                };
 
-            database.ExecuteNonQuery("pr_ThemChiTietHD", parameters, CommandType.StoredProcedure);
-            HienThiChiTiet();
-            TinhTongHoaDon();
+                database.ExecuteNonQuery("pr_ThemChiTietHD", parameters, CommandType.StoredProcedure);
+                HienThiChiTiet();
+                TinhTongHoaDon();
+                MessageBox.Show("Thêm chi tiết hóa đơn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Thêm thất bại: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btn_Sua_Click(object sender, EventArgs e)
@@ -80,15 +90,23 @@ namespace HSK_BookStoreManagement
                 return;
             }
 
-            SqlParameter[] parameters = {
-                new SqlParameter("@sMaHD", maHD),
-                new SqlParameter("@sMaSach", cb_MaSP.SelectedValue.ToString()),
-                new SqlParameter("@iSL", int.Parse(txt_SoLuong.Text))
-            };
+            try
+            {
+                SqlParameter[] parameters = {
+                    new SqlParameter("@sMaHD", maHD),
+                    new SqlParameter("@sMaSach", cb_MaSP.SelectedValue.ToString()),
+                    new SqlParameter("@iSL", int.Parse(txt_SoLuong.Text))
+                };
 
-            database.ExecuteNonQuery("pr_SuaChiTietHD", parameters, CommandType.StoredProcedure);
-            HienThiChiTiet();
-            TinhTongHoaDon();
+                database.ExecuteNonQuery("pr_SuaChiTietHD", parameters, CommandType.StoredProcedure);
+                HienThiChiTiet();
+                TinhTongHoaDon();
+                MessageBox.Show("Cập nhật chi tiết hóa đơn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Sửa thất bại: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btn_Xoa_Click(object sender, EventArgs e)
@@ -99,14 +117,36 @@ namespace HSK_BookStoreManagement
                 return;
             }
 
-            SqlParameter[] parameters = {
-                new SqlParameter("@sMaHD", maHD),
-                new SqlParameter("@sMaSach", cb_MaSP.SelectedValue.ToString())
-            };
+            if (MessageBox.Show("Bạn có chắc chắn muốn xóa sản phẩm này khỏi hóa đơn?", "Xác nhận xóa",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                return;
+            }
 
-            database.ExecuteNonQuery("pr_XoaChiTietHD", parameters, CommandType.StoredProcedure);
-            HienThiChiTiet();
-            TinhTongHoaDon();
+            try
+            {
+                SqlParameter[] parameters = {
+                    new SqlParameter("@sMaHD", maHD),
+                    new SqlParameter("@sMaSach", cb_MaSP.SelectedValue.ToString())
+                };
+
+                database.ExecuteNonQuery("pr_XoaChiTietHD", parameters, CommandType.StoredProcedure);
+                HienThiChiTiet();
+                TinhTongHoaDon();
+                MessageBox.Show("Xóa chi tiết hóa đơn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Xóa thất bại: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dtgv_ChiTietHD_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            var row = dtgv_ChiTietHD.Rows[e.RowIndex];
+            cb_MaSP.SelectedValue = row.Cells["Mã sản phẩm"].Value?.ToString() ?? "";
+            txt_SoLuong.Text = row.Cells["Số lượng"].Value?.ToString() ?? "";
         }
     }
 }
